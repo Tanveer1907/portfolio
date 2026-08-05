@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paper & Desk Base Palette */
+  --color-paper-base: #fef9ed;
+  --color-paper-page-dark: #eee8dc;
+  --color-desk-wood: #141210;
+
+  /* Stitch Theme Colors */
+  --color-[#fef9ed]: #fef9ed;
+  --color-primary: #181512;
+  --color-secondary: #775a19;
+  --color-surface: #fef9ed;
+  --color-outline: #7e756f;
+
+  /* Ink & Graphite Palette */
+  --color-ink-primary: #1c1a17;
+  --color-ink-secondary: #524e48;
+  --color-graphite: #706a62;
+  --color-graphite-light: #a39c93;
+
+  /* Accent Callouts */
+  --color-accent-amber: #d97706;
+  --color-accent-vermilion: #c2410c;
+
+  /* Z-Index Elevation Architecture */
+  --z-desk-base: 0;
+  --z-journal-base: 10;
+  --z-journal-under-page: 20;
+  --z-journal-flipping-page: 30;
+  --z-margin-annotations: 40;
+  --z-desk-props: 50;
+  --z-cursor: 9000;
+  --z-modal-overlay: 10000;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-desk-wood);
+    color: var(--color-ink-primary);
+    font-family: var(--font-body), "Source Serif 4", serif;
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
+    position: fixed;
+  }
+}
+
+/* Typography Utility Classes matching Stitch Design System */
+.font-display-lg,
+.font-headline-md {
+  font-family: var(--font-display), "EB Garamond", Georgia, serif;
+}
+
+.font-body-main,
+.font-body-sm {
+  font-family: var(--font-body), "Source Serif 4", Georgia, serif;
+}
+
+.font-annotation {
+  font-family: var(--font-annotation), "Bricolage Grotesque", sans-serif;
+}
+
+.font-meta-technical {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+}
+
+.font-script {
+  font-family: var(--font-script), "Caveat", cursive;
+}
+
+/* Gold Emboss Title Styling */
+.gold-emboss {
+  color: #d4af37;
+  text-shadow: 
+    -1px -1px 1px rgba(255,255,255,0.2),
+    1px 1px 2px rgba(0,0,0,0.8),
+    0 0 10px rgba(212, 175, 55, 0.2);
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.5);
+}
+
+/* Masking Tape Utility */
+.masking-tape {
+  background-color: rgba(245, 240, 228, 0.85);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  backdrop-filter: blur(2px);
+  mix-blend-mode: multiply;
+}
+
+/* Ink Stamp Callout */
+.ink-stamp {
+  border: 2px solid #ba1a1a;
+  color: #ba1a1a;
+  transform: rotate(-5deg);
+  display: inline-block;
+  padding: 4px 8px;
+  opacity: 0.85;
+  border-radius: 4px;
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+}
+
+/* Taped Photo Card */
+.photo-card {
+  background: #ffffff;
+  padding: 8px 8px 32px 8px;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.18);
+  transition: transform 0.2s ease, z-index 0.2s;
+}
+.photo-card:hover {
+  transform: scale(1.03) rotate(0deg) !important;
+  z-index: 20;
+}
+
+/* Blueprint Grid Overlay */
+.blueprint-overlay {
+  background-image: 
+    linear-gradient(rgba(24, 21, 18, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 21, 18, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Coffee Stain Ring */
+.coffee-stain {
+  border: 2px solid rgba(119, 90, 25, 0.18);
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Sketch Image Filter */
+.sketch-image {
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1.2) opacity(0.85);
+}
+
+/* Pen Shadow */
+.pen-shadow {
+  filter: drop-shadow(20px 10px 15px rgba(0, 0, 0, 0.45));
+}
+
+/* Page Fold Seam Shadow */
+.binding-shadow {
+  box-shadow: inset 20px 0 30px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Leather Cover Background */
+.bg-leather-cover {
+  background-color: #1a1a1a;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.8), 
+    0 10px 10px -5px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 5px rgba(255,255,255,0.05),
+    inset -5px -5px 15px rgba(0,0,0,0.5);
+}
+
+/* Engineering Graph Paper Background Utility */
+.bg-graph-paper {
+  background-image: 
+    linear-gradient(to right, rgba(175, 162, 140, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(175, 162, 140, 0.14) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Desk Surface Micro-Grain Overlay */
+.bg-desk-grain {
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0),
+    repeating-linear-gradient(
+      87deg,
+      transparent,
+      transparent 12px,
+      rgba(80, 60, 35, 0.04) 12px,
+      rgba(80, 60, 35, 0.04) 14px
+    ),
+    radial-gradient(rgba(200, 180, 140, 0.015) 0.5px, transparent 0.5px);
+  background-size: 8px 8px, 100% 100%, 4px 4px;
+}
+
+/* Realistic dark wood desk surface */
+.desk-surface {
+  background:
+    radial-gradient(ellipse 95% 75% at 20% 15%, rgba(120, 95, 65, 0.45) 0%, rgba(60, 48, 32, 0.2) 50%, transparent 85%),
+    radial-gradient(ellipse 65% 50% at 50% 45%, rgba(70, 55, 38, 0.35) 0%, transparent 75%),
+    linear-gradient(135deg, rgba(255, 230, 190, 0.04) 0%, transparent 40%, rgba(0, 0, 0, 0.65) 100%),
+    radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(0, 0, 0, 0.75) 80%, rgba(0, 0, 0, 0.95) 100%),
+    linear-gradient(180deg, #181512 0%, #12100e 40%, #0d0b09 100%);
+}
+
+/* High-realism paper texture with fibers & smudges */
+.paper-texture {
+  position: relative;
+}
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(140, 125, 100, 0.07) 1px, transparent 1px),
+    radial-gradient(rgba(100, 85, 60, 0.05) 0.5px, transparent 0.5px),
+    radial-gradient(ellipse 30% 20% at 85% 90%, rgba(80, 75, 65, 0.06) 0%, transparent 100%),
+    radial-gradient(ellipse 25% 15% at 15% 10%, rgba(90, 80, 70, 0.05) 0%, transparent 100%);
+  background-size: 5px 5px, 3px 3px, 100% 100%, 100% 100%;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Aged paper edge effect */
+.paper-worn-edge {
+  box-shadow:
+    inset 0 0 35px rgba(140, 115, 75, 0.12),
+    inset 12px 0 25px rgba(0, 0, 0, 0.05),
+    inset -12px 0 25px rgba(0, 0, 0, 0.05),
+    inset 0 12px 25px rgba(0, 0, 0, 0.06),
+    inset 0 -12px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* Desk contact shadow */
+.desk-ao {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 6px 14px rgba(0, 0, 0, 0.45),
+    12px 18px 32px rgba(0, 0, 0, 0.55),
+    20px 32px 50px -8px rgba(0, 0, 0, 0.65);
+}
+
+/* Notebook heavy desk drop shadow */
+.notebook-desk-shadow {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.9),
+    0 4px 10px rgba(0, 0, 0, 0.75),
+    0 16px 32px rgba(0, 0, 0, 0.65),
+    18px 38px 72px -6px rgba(0, 0, 0, 0.85),
+    28px 56px 110px -10px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Page edge striping */
+.page-edge-right {
+  background: repeating-linear-gradient(
+    to bottom,
+    #dbd4c4,
+    #dbd4c4 1px,
+    #c8c0ae 1px,
+    #f4eee2 2.5px
+  );
+}
+
+.page-edge-bottom {
+  background: repeating-linear-gradient(
+    to right,
+    #dbd4c4,
+    #dbd4c4 1px,
+    #c8c0ae 1px,
+    #f4eee2 2.5px
+  );
+}
+
+/* Ink Bleed / Handwriting effect */
+.ink-bleed {
+  text-shadow: 0 0 0.5px rgba(28, 25, 23, 0.4);
+}
