@@ -2,112 +2,121 @@ import React from "react";
 
 export const ContactChapter: React.FC = () => {
   return (
-    <article className="paper-texture w-full h-full relative flex flex-col md:flex-row mx-auto bg-[#fef9ed] text-[#1d1c15] border border-[#cfc4bd] p-6 md:p-10 justify-between overflow-hidden">
-      {/* Structural Grid for Page */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full relative h-full">
-        {/* Main Drafting Column */}
-        <div className="col-span-1 md:col-span-8 flex flex-col justify-between z-10 relative h-full">
-          <div>
-            <header className="mb-4 relative">
-              <h1 className="font-display-lg text-3xl md:text-4xl text-[#181512] tracking-tight font-semibold">
-                Final Dispatch.
-              </h1>
-              <p className="font-annotation text-xs sm:text-sm text-[#4d4540] mt-2 max-w-md">
-                Commence transmission. End of log sequence. Await further instructions or initiate direct contact.
-              </p>
-              {/* Floating Annotation */}
-              <div className="absolute -right-2 -top-4 text-[#775a19] font-annotation text-xs -rotate-3 opacity-80 pointer-events-none flex flex-col items-center">
-                <span>urgent.</span>
-                <svg className="w-5 h-5 ml-1 mt-0.5 stroke-[#775a19]" fill="none" viewBox="0 0 24 24">
-                  <path d="M19 14l-7 7m0 0l-7-7m7 7V3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                </svg>
-              </div>
-            </header>
+    <div className="w-full h-full relative flex flex-col md:flex-row bg-[#111] text-white overflow-hidden rounded-lg shadow-notebook">
+      {/* Book Cover Edge */}
+      <div className="absolute inset-0 border-[4px] border-[#0a0a0a] rounded-lg -z-10 bg-[#0a0a0a]" />
 
-            {/* Contact Form (Drafting Line Style) */}
-            <form className="space-y-3 max-w-lg mt-3 relative z-20">
-              <div className="relative group">
-                <label className="font-meta-technical text-[10px] text-[#7e756f] block mb-0.5" htmlFor="name">
-                  Operator Identifier
-                </label>
-                <input
-                  className="w-full bg-transparent border-0 border-b-2 border-[#181512] text-[#181512] focus:ring-0 focus:border-[#775a19] transition-colors font-body-main text-xs pb-1.5 px-0 placeholder-[#7e756f]/60 outline-none"
-                  id="name"
-                  placeholder="Enter name or callsign"
-                  type="text"
-                />
-              </div>
-              <div className="relative group mt-3">
-                <label className="font-meta-technical text-[10px] text-[#7e756f] block mb-0.5" htmlFor="freq">
-                  Frequency (Email)
-                </label>
-                <input
-                  className="w-full bg-transparent border-0 border-b-2 border-[#181512] text-[#181512] focus:ring-0 focus:border-[#775a19] transition-colors font-body-main text-xs pb-1.5 px-0 placeholder-[#7e756f]/60 outline-none"
-                  id="freq"
-                  placeholder="transmit@domain.com"
-                  type="email"
-                />
-              </div>
-              <div className="relative group mt-3">
-                <label className="font-meta-technical text-[10px] text-[#7e756f] block mb-0.5" htmlFor="msg">
-                  Encrypted Payload
-                </label>
-                <textarea
-                  className="w-full bg-transparent border-0 border-b-2 border-[#181512] text-[#181512] focus:ring-0 focus:border-[#775a19] transition-colors font-body-main text-xs pb-1.5 px-0 placeholder-[#7e756f]/60 outline-none resize-none"
-                  id="msg"
-                  placeholder="Draft transmission here..."
-                  rows={3}
-                />
-              </div>
+      {/* Bookmark Ribbon */}
+      <div className="absolute top-0 bottom-0 left-1/2 w-2 bg-[#050505] -translate-x-1/2 shadow-sm z-20" />
+
+      {/* Center Fold Shadow */}
+      <div className="absolute inset-y-0 left-1/2 w-20 -translate-x-1/2 center-fold z-10 pointer-events-none" />
+
+      {/* LEFT PAGE: The Form */}
+      <div className="flex-1 relative p-6 sm:p-10 md:p-12 pr-6 md:pr-14 notebook-spine rounded-l-lg border-r border-black/20 overflow-hidden flex flex-col justify-between dark-paper-texture">
+        <div>
+          {/* Header Info */}
+          <div className="flex justify-between items-start mb-6 border-b border-white/10 pb-3">
+            <span className="font-label-code text-xs text-[#ba1a1a] tracking-wider uppercase font-bold">
+              Final Dispatch // v1.0
+            </span>
+            <span className="font-label-code text-[10px] text-white/50 border border-white/20 px-2 py-0.5 rounded-sm">
+              SECURE_COMMS
+            </span>
+          </div>
+
+          <h1 className="font-headline-lg text-2xl sm:text-3xl font-bold text-white/90 mb-4 uppercase tracking-tight">
+            Communicate
+          </h1>
+
+          <form className="space-y-4 max-w-md">
+            <div className="group">
+              <label className="block font-label-code text-[10px] text-white/50 mb-1 uppercase tracking-wide">
+                Operator Identifier
+              </label>
+              <input
+                className="w-full input-line text-xs sm:text-sm"
+                placeholder="Name or Callsign"
+                type="text"
+              />
+            </div>
+
+            <div className="group">
+              <label className="block font-label-code text-[10px] text-white/50 mb-1 uppercase tracking-wide">
+                Frequency (Email)
+              </label>
+              <input
+                className="w-full input-line text-xs sm:text-sm"
+                placeholder="return.address@node.com"
+                type="email"
+              />
+            </div>
+
+            <div className="group">
+              <label className="block font-label-code text-[10px] text-white/50 mb-1 uppercase tracking-wide">
+                Payload
+              </label>
+              <textarea
+                className="w-full input-line text-xs sm:text-sm resize-none min-h-[90px]"
+                placeholder="Enter transmission data here..."
+                rows={3}
+              />
+            </div>
+
+            <div className="pt-2 text-right">
               <button
-                className="mt-4 px-5 py-2 bg-[#181512] text-[#ffffff] font-meta-technical text-xs tracking-widest hover:bg-[#323029] transition-colors uppercase border border-[#181512] shadow-[2px_2px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] duration-100 cursor-pointer"
+                className="font-label-code text-xs px-5 py-2 border border-white/20 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 uppercase tracking-widest active:scale-95 inline-flex items-center gap-1.5 rounded-sm cursor-pointer"
                 type="button"
               >
-                Execute Send
+                Transmit
+                <span className="material-symbols-outlined text-sm">send</span>
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
 
-        {/* Right Column (Asymmetric Attachments) */}
-        <div className="col-span-1 md:col-span-4 flex flex-col items-center justify-between relative h-full">
-          {/* Clipped Business Card */}
-          <div className="relative w-56 h-32 bg-white shadow-xs rotate-3 flex flex-col p-3.5 z-20 border border-[#cfc4bd]/40 hover:rotate-1 transition-transform cursor-pointer group rounded-xs my-2">
-            {/* Paperclip visual */}
-            <div className="absolute -top-3.5 left-5 w-3.5 h-8 border-2 border-[#7e756f] rounded-full bg-transparent z-30 opacity-70 group-hover:-translate-y-1 transition-transform" />
-            <div className="mt-auto">
-              <h3 className="font-headline-md text-base text-[#181512] font-bold">Tanveer Singh</h3>
-              <p className="font-meta-technical text-[10px] text-[#775a19] mt-0.5">Chief Architect</p>
-              <div className="mt-2 flex items-center gap-1 font-annotation text-xs text-[#7e756f]">
-                <span className="material-symbols-outlined text-xs">location_on</span>
-                Sector 4G
-              </div>
-            </div>
-          </div>
-
-          {/* Final Ink Stamp */}
-          <div className="relative opacity-85 rotate-[-15deg] pointer-events-none z-10 mix-blend-multiply my-2">
-            <div className="border-3 border-[#ba1a1a] text-[#ba1a1a] p-2.5 rounded-full w-24 h-24 flex items-center justify-center font-meta-technical text-[10px] uppercase tracking-widest text-center font-bold">
-              <span className="transform rotate-12">Verified<br />Complete</span>
-            </div>
-          </div>
+        {/* Page Number */}
+        <div className="font-label-code text-xs text-white/20 mt-4">
+          05
         </div>
       </div>
 
-      {/* Foreground Pen */}
-      {/* eslint-disable-next-html-link, @next/next/no-img-element */}
-      <img
-        alt="Machined Steel Pen"
-        className="absolute bottom-2 right-[-30px] w-72 rotate-[-25deg] pen-shadow z-50 pointer-events-none mix-blend-normal hidden sm:block opacity-90"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzS8U7M_YEJCa9ZmZjjSxlV24ZRXN4jMx7Jds2v3tw5xwPsfGqViuk83qtwoxBrM8YBOQfb9Anea_fbWQApuef-cR0WYVic_1hvBfm-nMRAfDNdIQbfctOPQVfX_M1FvhuT2_FeEGZBpZXVioENdLbfheidLIcq6ubdUIc90DmUvVye7mpQz8bu5ShNG5yJ9KHLGHBz6htYIWaMpTTqp2o18t_r1PwtJ-w8aMYqEsWp5L5yi1SsOBx"
-      />
+      {/* RIGHT PAGE: The Artifacts */}
+      <div className="flex-1 relative p-6 sm:p-10 md:p-12 pl-6 md:pl-14 notebook-spine rounded-r-lg bg-[#151515] flex flex-col justify-between overflow-hidden">
+        {/* Subtle grid texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px]" />
 
-      {/* Timestamp Overlay */}
-      <div className="absolute bottom-4 right-6 text-right z-30 pointer-events-none">
-        <p className="font-meta-technical text-[8px] text-[#7e756f] opacity-60">LAST ENTRY</p>
-        <p className="font-annotation text-[10px] text-[#181512]">2026.08.05_18:45Z</p>
+        <div className="relative z-10 w-full h-full flex flex-col justify-around items-center">
+          {/* Business Card Artifact */}
+          <div className="relative bg-[#fef9ef] text-[#1d1c16] p-4 shadow-card rotate-[2deg] w-64 sm:w-72 h-36 flex flex-col justify-center items-center border border-black/10 z-10 transition-transform hover:rotate-[3deg] hover:scale-105 duration-300 rounded-xs my-2">
+            {/* Paperclip Simulation */}
+            <div className="absolute -top-3.5 left-5 w-3 h-10 border-2 border-[#888] rounded-full shadow-xs bg-gradient-to-b from-[#ccc] to-[#888] z-20" />
+            <h3 className="font-headline-md text-lg text-[#1d1c16] font-bold uppercase tracking-widest">
+              Tanveer Singh
+            </h3>
+            <p className="font-label-code text-[11px] text-[#444748] uppercase mb-2 tracking-wider">
+              Engineer in Progress
+            </p>
+            <div className="w-10 h-[1px] bg-[#c4c7c7] mb-2" />
+            <p className="font-label-code text-[10px] text-[#747878] tracking-wider">
+              connect@buildlog.dev
+            </p>
+          </div>
+
+          {/* Stamp */}
+          <div className="relative z-30 stamp-texture my-2">
+            <div className="rotate-[-10deg] text-3xl sm:text-4xl font-handwriting text-white/70 drop-shadow-sm">
+              Acknowledged.
+            </div>
+          </div>
+        </div>
+
+        {/* Page Number */}
+        <div className="font-label-code text-xs text-white/20 text-right mt-4 relative z-10">
+          06
+        </div>
       </div>
-    </article>
+    </div>
   );
 };
 

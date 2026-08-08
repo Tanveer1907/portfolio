@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { fontDisplay, fontBody, fontAnnotation, fontMono, fontScript } from "@/styles/fonts";
-import "@/app/globals.css";
+import { fontPlayfair, fontInter, fontGeist } from "@/styles/fonts";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "The Build Log — An Engineer's Journal",
+  title: "Tanveer Singh — Computer Science Student & Developer",
   description:
-    "An interactive engineering journal documenting how a software engineer thinks, learns, and builds.",
+    "Personal engineering portfolio showcasing software projects, technical journey, and web development work.",
 };
 
 export default function RootLayout({
@@ -16,15 +16,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontDisplay.variable} ${fontBody.variable} ${fontAnnotation.variable} ${fontMono.variable} ${fontScript.variable}`}
+      className={`${fontPlayfair.variable} ${fontInter.variable} ${fontGeist.variable} scroll-smooth`}
     >
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        />
-      </head>
-      <body>{children}</body>
+      <body className="bg-[#11110F] text-[#F1EDE3] antialiased selection:bg-[#C86B4A] selection:text-[#11110F]">
+        {children}
+      </body>
     </html>
   );
 }

@@ -2,104 +2,157 @@ import React from "react";
 
 export const JourneyChapter: React.FC = () => {
   return (
-    <div className="w-full h-full relative z-10 text-[#1d1c15] overflow-hidden bg-[#fef9ed]">
-      {/* The Paper Spread */}
-      <article className="paper-texture w-full h-full rounded-sm relative overflow-hidden bg-[#fef9ed] p-6 md:p-10 border border-[#cfc4bd] flex flex-col justify-between">
-        {/* Bookmark Ribbons */}
-        <div
-          className="absolute -top-4 right-20 w-8 h-16 bg-[#ba1a1a] shadow-md rounded-b flex items-end justify-center pb-2 z-10"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)" }}
-        >
-          <span className="material-symbols-outlined text-white text-sm opacity-60">bookmark</span>
-        </div>
-        <div
-          className="absolute -top-6 right-32 w-6 h-20 bg-[#775a19] shadow-md rounded-b z-10"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%)" }}
-        />
-
-        {/* Page Margin Grid Lines */}
-        <div className="absolute top-0 bottom-0 left-12 w-px bg-[#cfc4bd] opacity-30" />
-        <div className="absolute top-0 bottom-0 right-12 w-px bg-[#cfc4bd] opacity-30" />
-
-        <div className="relative z-10">
-          {/* Spread Header */}
-          <header className="mb-6 border-b border-[#cfc4bd] pb-4 relative">
-            <h1 className="font-display-lg text-3xl md:text-4xl text-[#181512] mb-1 font-semibold">
-              Chronology of Builds
-            </h1>
-            <div className="font-meta-technical text-[10px] sm:text-xs text-[#7e756f] flex gap-3 tracking-wider">
-              <span>REV. 04</span>
-              <span>|</span>
-              <span>1998 — PRESENT</span>
-              <span>|</span>
-              <span>STATUS: ITERATING</span>
+    <div className="w-full h-full relative flex flex-col md:flex-row bg-[#fef9ef] text-[#1d1c16] overflow-hidden rounded-sm border border-[#c4c7c7]/40 shadow-notebook">
+      {/* LEFT PAGE: Chronology of Builds */}
+      <section className="flex-1 h-full paper-texture relative p-6 sm:p-10 md:p-12 md:pr-14 border-r md:border-r-0 border-b md:border-b-0 border-[#c4c7c7]/20 flex flex-col justify-between overflow-hidden">
+        <div>
+          {/* Page Header */}
+          <header className="flex justify-between items-center mb-6 border-b border-[#c4c7c7]/30 pb-3">
+            <div className="font-label-code text-xs text-[#6b5e2a] tracking-wider font-bold">
+              CHAPTER 02
             </div>
-            {/* Annotation attached to header */}
-            <div className="absolute -right-2 top-0 rotate-3 w-44 hidden lg:block">
-              <div className="font-annotation text-[11px] text-[#7e756f] opacity-80 leading-snug">
-                *Note: Initial phases heavily reliant on unstructured experimentation. Proceed with caution.
-              </div>
+            <div className="font-label-code text-xs text-[#444748] border border-[#c4c7c7] px-2.5 py-0.5">
+              V. 2.0.1
             </div>
           </header>
 
-          {/* Timeline Nodes Container */}
-          <div className="relative w-full grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
-            {/* Node 1 */}
-            <div className="relative mb-4" style={{ width: "fit-content" }}>
-              <div className="font-meta-technical text-[10px] text-[#7e756f] mb-0.5 uppercase font-bold">
-                01. GENESIS
+          <h1 className="font-headline-lg text-2xl sm:text-3xl font-bold text-[#1d1c16] mb-1 uppercase tracking-tight">
+            Chronology of Builds
+          </h1>
+          <p className="font-handwriting text-lg text-[#1e3a8a] mb-6 -rotate-1 opacity-90 pl-1">
+            Tracing the commit history of a developing mind.
+          </p>
+
+          {/* Timeline Container */}
+          <div className="relative pl-5 border-l-2 border-[#747878]/30 space-y-6">
+            {/* Timeline Item 1 */}
+            <div className="relative">
+              <div className="absolute -left-[27px] top-1 w-3.5 h-3.5 rounded-full bg-[#6b5e2a] border-2 border-[#fef9ef]" />
+              <div className="font-label-code text-[11px] text-[#444748] mb-1 flex items-center gap-2">
+                <span className="bg-[#ece8de] px-2 py-0.5 rounded text-[10px] border border-[#747878]/20 font-bold">
+                  feat: init portfolio
+                </span>
+                <span className="opacity-60">2023-05-12</span>
               </div>
-              <div className="bg-[#f8f3e7] border border-[#cfc4bd] p-3 w-56 sm:w-64 rotate-[1deg] shadow-2xs">
-                <h3 className="font-headline-md text-base sm:text-lg font-bold mb-1 text-[#181512]">
-                  The First Assembly
-                </h3>
-                <p className="font-body-sm text-xs text-[#4d4540] leading-relaxed">
-                  Constructed from salvaged parts. Structural integrity compromised but functional.
-                </p>
-              </div>
-              {/* Tape */}
-              <div className="masking-tape w-10 h-3.5 absolute -top-2 left-1/2 -translate-x-1/2 -rotate-2" />
-              {/* Graphite Annotation */}
-              <div className="font-annotation text-xs text-[#181512] mt-1 rotate-[-2deg]">
-                Ignored torque specs → Learned the hard way.
-              </div>
+              <h3 className="font-headline-md text-lg font-bold text-[#1d1c16] mb-1">
+                The First Monolith
+              </h3>
+              <p className="font-body-sm text-xs text-[#444748] leading-relaxed">
+                Built entirely in raw HTML/CSS. A sprawling single file that taught me the harsh reality of maintainability.
+              </p>
             </div>
 
-            {/* Node 2 (Branch Right) */}
-            <div className="relative mb-4 md:ml-auto" style={{ width: "fit-content" }}>
-              <div className="font-meta-technical text-[10px] text-[#7e756f] mb-0.5 text-right uppercase font-bold">
-                02. PIVOT
+            {/* Timeline Item 2 */}
+            <div className="relative">
+              <div className="absolute -left-[27px] top-1 w-3.5 h-3.5 rounded-full bg-[#fef9ef] border-2 border-[#747878]" />
+              <div className="font-label-code text-[11px] text-[#444748] mb-1 flex items-center gap-2">
+                <span className="bg-[#ece8de] px-2 py-0.5 rounded text-[10px] border border-[#747878]/20 font-bold">
+                  refactor: extract components
+                </span>
+                <span className="opacity-60">2023-09-01</span>
               </div>
-              <div className="bg-[#fef9ed] border border-[#cfc4bd] p-3 w-60 sm:w-68 -rotate-[1deg] shadow-2xs">
-                <h3 className="font-headline-md text-base sm:text-lg font-bold mb-1 text-[#181512]">
-                  System Overhaul
-                </h3>
-                <p className="font-body-sm text-xs text-[#4d4540] leading-relaxed">
-                  Transitioned to modular architecture. Reduced technical debt by 40%.
-                </p>
-              </div>
+              <h3 className="font-headline-md text-lg font-bold text-[#1d1c16] mb-1">
+                Discovering React
+              </h3>
+              <p className="font-body-sm text-xs text-[#444748] leading-relaxed">
+                Breaking the monolith into reusable pieces. State management still a mystery, but the mental model shifted.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Clipped Scrap Paper (Floating outside grid) */}
-        <div className="absolute top-20 -left-6 rotate-[-5deg] z-20">
-          {/* Brass Clip */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-8 bg-gradient-to-br from-amber-300 via-amber-500 to-amber-800 rounded-xs shadow-xs border border-amber-900/40 z-30" />
-          {/* Scrap Paper */}
-          <div className="bg-[#e7e2d6] p-3 w-40 h-40 border-l-2 border-[#775a19] shadow-xs">
-            <div className="font-meta-technical text-[9px] text-[#7e756f] mb-1 font-bold uppercase">
-              SCRATCHPAD //
+        {/* Page Number Left */}
+        <div className="font-label-code text-xs text-[#444748] opacity-50 mt-4">
+          02
+        </div>
+      </section>
+
+      {/* The Spine (Center Gutter) */}
+      <div className="hidden md:block w-10 h-full book-spine flex-shrink-0 relative z-10 border-l border-r border-[#c4c7c7]/10">
+        {/* Ribbon Bookmark */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-[105%] bg-[#ba1a1a]/90 shadow-sm z-20" />
+      </div>
+
+      {/* RIGHT PAGE: Pivot Points */}
+      <section className="flex-1 h-full paper-texture relative p-6 sm:p-10 md:p-12 md:pl-14 flex flex-col justify-between overflow-hidden">
+        <div>
+          <header className="flex justify-between items-center mb-6 border-b border-[#c4c7c7]/30 pb-3">
+            <div className="font-label-code text-xs text-[#001c37] font-bold tracking-wider">
+              {"// DESIGN DECISIONS"}
             </div>
-            <div className="font-annotation text-xs text-[#181512] opacity-90 leading-relaxed">
-              To-do:<br />
-              - Refine tolerance.<br />
-              - Order more brass stock.<br />
-              - Re-read chapter 4 on load distribution.
+          </header>
+
+          <h2 className="font-headline-lg text-2xl sm:text-3xl font-bold text-[#1d1c16] mb-4 uppercase tracking-tight">
+            Pivot Points
+          </h2>
+
+          {/* Diagram Sketch Area */}
+          <div className="bg-[#f8f3e9] border border-[#c4c7c7]/50 p-4 rounded-sm mb-6 relative shadow-xs">
+            {/* Washi Tape Graphic */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-5 washi-tape -rotate-2" />
+            <p className="font-handwriting text-lg text-[#1e3a8a] text-center mb-4 -rotate-1 opacity-90">
+              Architecture Evolution
+            </p>
+            <div className="flex justify-between items-center px-2 font-label-code text-xs text-[#444748]">
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-14 h-20 border-2 border-[#747878] rounded-sm flex flex-col justify-center gap-1.5 p-1.5 bg-[#fef9ef]">
+                  <div className="h-3 border border-[#747878] rounded-[1px] w-full flex items-center px-1">
+                    <div className="w-1 h-1 rounded-full bg-[#747878]" />
+                  </div>
+                  <div className="h-3 border border-[#747878] rounded-[1px] w-full flex items-center px-1">
+                    <div className="w-1 h-1 rounded-full bg-[#747878]" />
+                  </div>
+                </div>
+                <span className="text-[10px] uppercase font-bold">Monolith</span>
+              </div>
+
+              <div className="flex-1 px-2 text-center text-[#001c37] relative">
+                <div className="h-[2px] bg-[#a3c9fc] w-full relative">
+                  <div className="absolute right-0 -top-[3px] w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-l-6 border-l-[#a3c9fc]" />
+                </div>
+                <span className="bg-[#f8f3e9] px-1 relative -top-2.5 text-[#1f4874] font-handwriting text-sm font-bold">
+                  Scale
+                </span>
+              </div>
+
+              <div className="flex flex-col items-center gap-1">
+                <div className="grid grid-cols-2 gap-1 bg-[#fef9ef] p-1 border border-[#747878]">
+                  <div className="w-6 h-8 border border-[#747878] rounded-sm" />
+                  <div className="w-6 h-8 border border-[#747878] rounded-sm" />
+                  <div className="w-6 h-8 border border-[#747878] rounded-sm" />
+                  <div className="w-6 h-8 border border-[#747878] rounded-sm" />
+                </div>
+                <span className="text-[10px] uppercase font-bold">Microservices</span>
+              </div>
             </div>
           </div>
+
+          {/* Sticky Note (To-do) */}
+          <div className="relative ml-auto w-48 sticky-note-yellow p-4 rotate-2 shadow-xs font-annotation text-xs text-[#1d1c16] rounded-xs border border-amber-400/30">
+            {/* Washi tape corner */}
+            <div className="absolute -top-2 -left-2 w-10 h-3.5 washi-tape rotate-45" />
+            <h4 className="font-bold border-b border-[#1d1c16]/20 pb-1 mb-2 font-label-code text-[11px] uppercase">
+              Next Up
+            </h4>
+            <ul className="space-y-1.5 list-none pl-0 font-handwriting text-base">
+              <li className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-xs">check_box_outline_blank</span> Learn Docker
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-xs">check_box_outline_blank</span> Setup CI/CD
+              </li>
+              <li className="flex items-center gap-1.5 text-[#1d1c16]/50 line-through">
+                <span className="material-symbols-outlined text-xs">check_box</span> Break production
+              </li>
+            </ul>
+          </div>
         </div>
-      </article>
+
+        {/* Page Number Right */}
+        <div className="font-label-code text-xs text-[#444748] opacity-50 text-right mt-4">
+          03
+        </div>
+      </section>
     </div>
   );
 };
