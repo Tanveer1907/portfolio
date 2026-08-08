@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 interface SideSectionIndicatorProps {
   activeSection: string;
@@ -30,15 +31,16 @@ export default function SideSectionIndicator({
             className="flex items-center gap-4 group transition-all cursor-pointer relative"
             aria-label={`Jump to section ${sec.label}`}
           >
-            <span
-              className={`rounded-full transition-all duration-300 ${
-                isActive
-                  ? "w-2.5 h-2.5 bg-[#F1F0EB] scale-125"
-                  : "w-1.5 h-1.5 bg-[#49473f] group-hover:scale-150 group-hover:bg-[#F1F0EB]"
-              }`}
+            <motion.span
+              animate={{
+                scale: isActive ? 1.3 : 1,
+                backgroundColor: isActive ? "#F1F0EB" : "#49473f",
+              }}
+              transition={{ duration: 0.3 }}
+              className="w-2 h-2 rounded-full group-hover:bg-[#F1F0EB]"
             />
             <span
-              className={`font-mono-data text-xs transition-opacity duration-300 ${
+              className={`font-mono-data text-xs transition-all duration-300 ${
                 isActive
                   ? "opacity-100 text-[#F1F0EB] font-bold"
                   : "opacity-0 group-hover:opacity-100 text-[#cac6bf]"

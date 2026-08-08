@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
-  const email = "tanveer.singh07@gmail.com";
+  const email = "1906tanveer@gmail.com";
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();

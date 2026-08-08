@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
+import GlobalBackground from "@/components/layout/GlobalBackground";
 import TopHeader from "@/components/navigation/TopHeader";
 import SideSectionIndicator from "@/components/navigation/SideSectionIndicator";
 import MenuOverlay from "@/components/navigation/MenuOverlay";
@@ -56,67 +58,73 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A09] text-[#F1F0EB] antialiased overflow-x-hidden w-full">
-      {/* Top Header Navigation */}
-      <TopHeader onOpenMenu={() => setIsMenuOpen(true)} />
-
-      {/* Side Section Indicators */}
-      <SideSectionIndicator
-        activeSection={activeSection}
-        onSelectSection={scrollToSection}
-      />
-
-      {/* Main Single-Column Full Viewport Journey Flow */}
-      <main className="w-full flex flex-col">
-        {/* 01 HERO SECTION */}
-        <HeroSection onExplore={() => scrollToSection("about")} />
-
-        {/* 02 ABOUT SECTION */}
-        <AboutSection
-          onOpenExpandedAbout={() => setIsExpandedAboutOpen(true)}
+    <SmoothScrollProvider>
+      <GlobalBackground />
+      <div className="relative min-h-screen bg-[#0A0A09] text-[#F1F0EB] antialiased overflow-x-hidden w-full">
+        {/* Top Header Navigation */}
+        <TopHeader
+          onOpenMenu={() => setIsMenuOpen(true)}
+          activeSection={activeSection}
         />
 
-        {/* 03 SELECTED WORKS / PROJECTS */}
-        <ProjectsSection
-          onOpenProjectDetail={(id) => setSelectedProjectId(id)}
-          onOpenAllProjects={() => setIsAllProjectsOpen(true)}
+        {/* Side Section Indicators */}
+        <SideSectionIndicator
+          activeSection={activeSection}
+          onSelectSection={scrollToSection}
         />
 
-        {/* 04 ENGINEERING TOOLKIT / SKILLS */}
-        <SkillsSection />
+        {/* Main Single-Column Full Viewport Journey Flow */}
+        <main className="w-full flex flex-col">
+          {/* 01 HERO SECTION */}
+          <HeroSection onExplore={() => scrollToSection("about")} />
 
-        {/* 05 THE JOURNEY / VISUAL MAP */}
-        <JourneyMapSection />
+          {/* 02 ABOUT SECTION */}
+          <AboutSection
+            onOpenExpandedAbout={() => setIsExpandedAboutOpen(true)}
+          />
 
-        {/* 06 LET'S BUILD / CONNECT */}
-        <ContactSection />
+          {/* 03 SELECTED WORKS / PROJECTS */}
+          <ProjectsSection
+            onOpenProjectDetail={(id) => setSelectedProjectId(id)}
+            onOpenAllProjects={() => setIsAllProjectsOpen(true)}
+          />
 
-        {/* FOOTER */}
-        <Footer />
-      </main>
+          {/* 04 ENGINEERING TOOLKIT / SKILLS */}
+          <SkillsSection />
 
-      {/* Overlays and Modals */}
-      <MenuOverlay
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        onSelectSection={scrollToSection}
-      />
+          {/* 05 THE JOURNEY / VISUAL MAP */}
+          <JourneyMapSection />
 
-      <ExpandedAboutModal
-        isOpen={isExpandedAboutOpen}
-        onClose={() => setIsExpandedAboutOpen(false)}
-      />
+          {/* 06 LET'S BUILD / CONNECT */}
+          <ContactSection />
 
-      <ProjectDetailModal
-        projectId={selectedProjectId}
-        onClose={() => setSelectedProjectId(null)}
-      />
+          {/* FOOTER */}
+          <Footer />
+        </main>
 
-      <AllProjectsModal
-        isOpen={isAllProjectsOpen}
-        onClose={() => setIsAllProjectsOpen(false)}
-        onSelectProject={(id) => setSelectedProjectId(id)}
-      />
-    </div>
+        {/* Overlays and Modals */}
+        <MenuOverlay
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          onSelectSection={scrollToSection}
+        />
+
+        <ExpandedAboutModal
+          isOpen={isExpandedAboutOpen}
+          onClose={() => setIsExpandedAboutOpen(false)}
+        />
+
+        <ProjectDetailModal
+          projectId={selectedProjectId}
+          onClose={() => setSelectedProjectId(null)}
+        />
+
+        <AllProjectsModal
+          isOpen={isAllProjectsOpen}
+          onClose={() => setIsAllProjectsOpen(false)}
+          onSelectProject={(id) => setSelectedProjectId(id)}
+        />
+      </div>
+    </SmoothScrollProvider>
   );
 }

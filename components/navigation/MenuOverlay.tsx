@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface MenuOverlayProps {
@@ -23,6 +23,14 @@ export default function MenuOverlay({
   onClose,
   onSelectSection,
 }: MenuOverlayProps) {
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", onKeyDown); document.body.style.overflow = ""; };
+  }, [isOpen, onClose]);
+
   const handleItemClick = (id: string) => {
     onClose();
     onSelectSection(id);
@@ -71,7 +79,7 @@ export default function MenuOverlay({
                 <span className="font-mono-data text-xs text-[#949087] group-hover:text-[#f5eee0] transition-colors">
                   {item.label}
                 </span>
-                <span className="font-hero-display text-3xl sm:text-5xl md:text-6xl text-[#cac6bf] group-hover:text-[#f5eee0] uppercase transition-colors tracking-tight">
+                <span className="font-hero-display text-3xl sm:text-5xl md:text-6xl text-[#cac6bf] group-hover:text-[#f5eee0] group-hover:translate-x-3 uppercase transition-all duration-300 tracking-tight">
                   {item.title}
                 </span>
               </motion.button>
