@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { fontPlayfair, fontInter, fontGeist } from "@/styles/fonts";
+import { fontPlayfair, fontInter, fontGeist, fontMono } from "@/styles/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tanveer Singh — Computer Science Student & Developer",
+  title: "Tanveer Singh — Portfolio",
   description:
-    "Personal engineering portfolio showcasing software projects, technical journey, and web development work.",
+    "Software developer passionate about building scalable systems and intuitive experiences.",
 };
 
 export default function RootLayout({
@@ -16,11 +16,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontPlayfair.variable} ${fontInter.variable} ${fontGeist.variable} scroll-smooth`}
+      className={`${fontPlayfair.variable} ${fontInter.variable} ${fontGeist.variable} ${fontMono.variable} dark scroll-smooth`}
     >
-      <body className="bg-[#11110F] text-[#F1EDE3] antialiased selection:bg-[#C86B4A] selection:text-[#11110F]">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        />
+      </head>
+      <body className="bg-[#0A0A09] text-[#e6e2df] antialiased selection:bg-[#f5eee0] selection:text-[#0A0A09]">
         {children}
       </body>
     </html>
   );
 }
+

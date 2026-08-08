@@ -1,216 +1,114 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Github, Code, Layers, Sparkles } from "lucide-react";
+import React from "react";
 
-interface Project {
-  id: string;
-  num: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  highlights: string[];
-  techStack: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  imageBg: string;
+
+interface ProjectsSectionProps {
+  onOpenProjectDetail: (projectId: string) => void;
+  onOpenAllProjects: () => void;
 }
 
-export default function ProjectsSection() {
-  const projects: Project[] = [
-    {
-      id: "hackconnect",
-      num: "PROJECT 01",
-      title: "HackConnect",
-      subtitle: "Developer Matchmaking & Collaboration Platform",
-      description:
-        "A real-time collaborative platform designed for developers and hackathon participants to form teams, share ideas, and coordinate projects seamlessly during build competitions.",
-      highlights: [
-        "Real-time team chat and room messaging",
-        "Skill-based developer matchmaking",
-        "Project showcase and idea discovery portal",
-      ],
-      techStack: ["React", "Node.js", "WebSockets", "Express", "TailwindCSS"],
-      githubUrl: "https://github.com/Tanveer1907",
-      imageBg: "from-[#1D1C18] to-[#141412]",
-    },
-    {
-      id: "chitkara-diaries",
-      num: "PROJECT 02",
-      title: "Chitkara Diaries",
-      subtitle: "Digital Campus Portal & Student Community",
-      description:
-        "An interactive digital campus portal for Chitkara University students, providing a space to share stories, access community updates, and discover campus experiences.",
-      highlights: [
-        "Interactive story publishing & community feed",
-        "Campus announcement & event index",
-        "Responsive, modern editorial UI design",
-      ],
-      techStack: ["Next.js", "TypeScript", "React", "TailwindCSS", "Node.js"],
-      githubUrl: "https://github.com/Tanveer1907",
-      imageBg: "from-[#1D1C18] to-[#141412]",
-    },
-  ];
-
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-
+export default function ProjectsSection({
+  onOpenProjectDetail,
+  onOpenAllProjects,
+}: ProjectsSectionProps) {
   return (
-    <section id="work" className="py-28 px-6 max-w-6xl mx-auto border-t border-[#F1EDE3]/12">
-      {/* Header Block */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-        <div className="space-y-3 max-w-2xl">
-          <div className="flex items-center justify-between text-[11px] font-geist font-medium tracking-widest text-[#A6A197]">
-            <span className="text-[#C86B4A]">03 // BUILDS</span>
-            <span className="opacity-60">[ LOG REF 03 ]</span>
+    <section id="projects" className="w-full flex flex-col border-b border-subtle bg-[#0A0A09]">
+      {/* Section Header */}
+      <div className="w-full p-6 md:px-24 xl:px-48 pt-32 pb-16 border-b border-subtle">
+        <span className="font-mono-data text-[#949087] mb-8 block">
+          02 / PROJECTS
+        </span>
+        <div className="flex flex-col md:flex-row justify-between md:items-end gap-12">
+          <div>
+            <h2 className="font-headline-lg text-[#F1F0EB] uppercase tracking-wide text-5xl md:text-6xl">
+              Selected<br />Works
+            </h2>
           </div>
-          <h2 className="font-playfair text-4xl sm:text-6xl font-medium text-[#F1EDE3] tracking-tight">
-            Case-Study Sheets
-          </h2>
-          <p className="font-inter text-base text-[#A6A197] font-light leading-relaxed">
-            Detailed case studies of software applications built with an emphasis on clean logic, interactive usability, and real-world execution.
-          </p>
-        </div>
-
-        {/* Project Selector Tabs */}
-        <div className="flex gap-2 p-1.5 rounded-xl bg-[#181815] border border-[#F1EDE3]/12">
-          {projects.map((p, idx) => (
+          <div className="flex flex-col items-start md:items-end gap-4 max-w-md">
+            <p className="font-body-md text-[#cac6bf] text-lg">
+              Things I&apos;ve built that solve real problems or were fun to experiment with. Focus on systems and architecture.
+            </p>
             <button
-              key={p.id}
-              onClick={() => setActiveProjectIndex(idx)}
-              className={`px-4 py-2 rounded-lg font-geist text-xs font-medium transition-all cursor-pointer ${
-                activeProjectIndex === idx
-                  ? "bg-[#C86B4A] text-[#11110F] shadow-xs font-semibold"
-                  : "text-[#A6A197] hover:text-[#F1EDE3]"
-              }`}
+              onClick={onOpenAllProjects}
+              className="group flex items-center gap-2 text-xs font-label-caps text-[#cac6bf] hover:text-[#F1F0EB] transition-colors cursor-pointer"
             >
-              {p.num}
+              <span>VIEW ALL PROJECTS</span>
+              <span className="material-symbols-outlined text-sm transform group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
             </button>
-          ))}
+          </div>
         </div>
       </div>
 
-      {/* Main Sticky Case-Study Sheet Showcase */}
-      <div className="relative space-y-16">
-        {projects.map((project, index) => {
-          const isSelected = activeProjectIndex === index;
-          return (
-            <motion.article
-              key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              style={{ top: `${80 + index * 24}px` }}
-              className={`sticky rounded-2xl border transition-all duration-500 overflow-hidden shadow-2xl backdrop-blur-md ${
-                isSelected
-                  ? "bg-[#181815] border-[#F1EDE3]/18 z-20"
-                  : "bg-[#181815]/95 border-[#F1EDE3]/12 z-10 hover:border-[#F1EDE3]/18"
-              }`}
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-                {/* Visual Artwork Column */}
-                <div
-                  className={`lg:col-span-6 min-h-[320px] sm:min-h-[400px] bg-gradient-to-br ${project.imageBg} p-8 sm:p-12 flex flex-col justify-between relative border-b lg:border-b-0 lg:border-r border-[#F1EDE3]/12`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-geist text-xs font-semibold text-[#F1EDE3] tracking-widest uppercase px-3 py-1 rounded bg-[#11110F]/80 border border-[#F1EDE3]/12">
-                      {project.num}
-                    </span>
-                    <Sparkles className="w-4 h-4 text-[#A6A197]" />
-                  </div>
+      {/* Case Study 1: Chitkara Diaries */}
+      <div className="w-full flex flex-col lg:flex-row min-h-[85vh] group">
+        {/* Large Preview Area */}
+        <div
+          onClick={() => onOpenProjectDetail("chitkara-diaries")}
+          className="w-full lg:w-2/3 p-6 md:p-16 lg:p-24 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-subtle bg-[#0C0C0B] relative overflow-hidden cursor-pointer"
+        >
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#F1F0EB]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="w-full aspect-[16/10] rounded-xl overflow-hidden border border-subtle shadow-2xl relative z-10 transform group-hover:scale-[1.02] transition-transform duration-700 ease-out">
+            <img
+              alt="Chitkara Diaries Dashboard"
+              className="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGd8LQRwpkhbwbW98Zz9D-HWZFHvw3um73nBfMDo3cxOjX8p7TQoFTktkEd8yjKAeMZgKzZvLUIwT7rIIXJ_QSze3qVT7TtRsbtF7HAPPcd5MxFEh1-s2Psdyab31Heq_dq6VXLXNfCsJ_oqNz_9xORvMDFXdqVwXyTvfITzAL-hXXIS-3D9iivIwK7twHHwq-1OBIDVAehgc2qX6BrBeGoOAVY3n6MyAXpf6YfEB50DBEBYrdh1Iu"
+            />
+          </div>
+        </div>
 
-                  {/* Project Artwork Canvas Mockup */}
-                  <div className="my-auto py-8">
-                    <div className="p-6 rounded-xl bg-[#11110F]/85 border border-[#F1EDE3]/12 space-y-4 shadow-lg backdrop-blur-xs">
-                      <div className="flex items-center gap-2 border-b border-[#F1EDE3]/12 pb-3 text-[#A6A197]">
-                        <Code className="w-4 h-4 text-[#C86B4A]" />
-                        <span className="font-geist text-xs tracking-wider font-medium text-[#F1EDE3]">
-                          {project.title} Architecture Preview
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        {project.highlights.map((h, i) => (
-                          <div key={i} className="flex items-center gap-2.5 text-xs font-geist text-[#A6A197]">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#C86B4A]" />
-                            <span>{h}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+        {/* Info Area */}
+        <div className="w-full lg:w-1/3 p-6 md:p-16 lg:p-24 flex flex-col justify-center bg-[#0A0A09]">
+          <span className="font-label-caps text-[#949087] mb-6 tracking-widest text-xs">
+            FEATURED PROJECT
+          </span>
+          <h3
+            onClick={() => onOpenProjectDetail("chitkara-diaries")}
+            className="font-headline-md text-[#F1F0EB] hover:text-white transition-colors mb-8 text-4xl uppercase tracking-wide cursor-pointer"
+          >
+            CHITKARA DIARIES
+          </h3>
+          <p className="font-body-md text-[#cac6bf] mb-12 text-lg leading-relaxed">
+            Campus information system built to help students discover events, clubs and resources in one place. Engineered with a scalable microservices architecture.
+          </p>
 
-                  <div className="flex items-center justify-between text-xs font-geist text-[#A6A197]">
-                    <span>Case Study</span>
-                    <span>{project.subtitle}</span>
-                  </div>
-                </div>
-
-                {/* Content Column */}
-                <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between space-y-8">
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <span className="font-geist text-xs font-medium text-[#C86B4A] uppercase tracking-wider">
-                        {project.subtitle}
-                      </span>
-                      <h3 className="font-playfair text-3xl sm:text-4xl font-medium text-[#F1EDE3]">
-                        {project.title}
-                      </h3>
-                    </div>
-
-                    <p className="font-inter text-sm sm:text-base text-[#A6A197] font-light leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    {/* Key Highlights */}
-                    <div className="pt-2 space-y-2">
-                      <h4 className="font-geist text-xs font-semibold text-[#F1EDE3] uppercase tracking-wider">
-                        Key Features
-                      </h4>
-                      <ul className="space-y-1.5">
-                        {project.highlights.map((item) => (
-                          <li key={item} className="flex items-center gap-2 text-xs font-geist text-[#A6A197]">
-                            <Layers className="w-3.5 h-3.5 text-[#C86B4A]" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Tech Stack Pills & Action Button */}
-                  <div className="space-y-6 pt-4 border-t border-[#F1EDE3]/12">
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 rounded-md bg-[#1D1C18] border border-[#F1EDE3]/12 text-[#F1EDE3] font-geist text-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-transparent border border-[#F1EDE3]/18 hover:bg-[#F1EDE3]/[0.06] text-[#F1EDE3] font-geist text-xs font-medium uppercase tracking-wider transition-all"
-                        >
-                          <Github className="w-4 h-4 text-[#F1EDE3]" />
-                          <span>View on GitHub</span>
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
+          <div className="flex flex-col gap-6 mb-16 border-l border-subtle pl-8">
+            <div>
+              <span className="font-label-caps text-[#949087] block mb-2 tracking-widest text-xs">
+                ROLE
+              </span>
+              <span className="font-body-md text-[#F1F0EB] text-lg">
+                Full Stack Developer
+              </span>
+            </div>
+            <div>
+              <span className="font-label-caps text-[#949087] block mb-2 tracking-widest text-xs">
+                TECH STACK
+              </span>
+              <div className="flex flex-wrap gap-3 mt-2">
+                <span className="font-mono-data text-[#cac6bf]">React</span>
+                <span className="text-[#949087]">/</span>
+                <span className="font-mono-data text-[#cac6bf]">Node.js</span>
+                <span className="text-[#949087]">/</span>
+                <span className="font-mono-data text-[#cac6bf]">MySQL</span>
               </div>
-            </motion.article>
-          );
-        })}
+            </div>
+          </div>
+
+          <button
+            onClick={() => onOpenProjectDetail("chitkara-diaries")}
+            className="group/btn flex items-center gap-4 w-fit border-b border-transparent hover:border-[#F1F0EB] pb-2 transition-all cursor-pointer"
+          >
+            <span className="font-label-caps text-[#cac6bf] group-hover/btn:text-[#F1F0EB] transition-colors tracking-widest text-xs">
+              VIEW CASE STUDY
+            </span>
+            <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover/btn:text-[#F1F0EB] transition-all transform group-hover/btn:translate-x-2">
+              arrow_forward
+            </span>
+          </button>
+        </div>
       </div>
     </section>
   );

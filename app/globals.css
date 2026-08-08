@@ -2,62 +2,114 @@
 
 @layer base {
   :root {
-    --background: #11110F;
-    --foreground: #F1EDE3;
-    --muted: #A6A197;
-    --surface: #181815;
-    --surface-hover: #1D1C18;
-    --surface-elevated: #1D1C18;
-    --border: rgba(241, 237, 227, 0.12);
-    --border-strong: rgba(241, 237, 227, 0.18);
-    --accent: #C86B4A;
-    --accent-soft: #D99A7D;
+    --background: #0A0A09;
+    --surface: #0C0C0B;
+    --surface-container: #121110;
+    --surface-bright: #201f1e;
+    --primary: #F1F0EB;
+    --on-surface: #F1F0EB;
+    --secondary: #cac6bf;
+    --outline: #949087;
+    --outline-variant: #49473f;
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --accent: #D8D2C4;
   }
 
   body {
-    background-color: #11110F;
-    color: #F1EDE3;
-    font-family: var(--font-geist), var(--font-inter), sans-serif;
-    overflow-x: hidden;
+    background-color: #0A0A09;
+    color: #F1F0EB;
+    font-family: var(--font-geist), var(--font-inter), system-ui, sans-serif;
   }
 }
 
-/* Tactile Paper Grain & Soft Ambient Overlay */
-.paper-noise-bg {
-  background-image: radial-gradient(rgba(241, 237, 227, 0.04) 1px, transparent 1px);
-  background-size: 28px 28px;
+.border-subtle {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-.subtle-vignette {
-  background: radial-gradient(circle at 50% 30%, transparent 35%, rgba(17, 17, 15, 0.75) 100%);
+.font-hero-display {
+  font-family: var(--font-geist), sans-serif;
+  font-size: clamp(3rem, 10vw, 8.75rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  font-weight: 800;
 }
 
-.glass-surface {
-  background-color: rgba(24, 24, 21, 0.72);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(241, 237, 227, 0.12);
+.font-hero-display-mobile {
+  font-family: var(--font-geist), sans-serif;
+  font-size: clamp(2.5rem, 9vw, 4rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-weight: 800;
 }
 
-/* Custom Editorial Scrollbar */
+.font-headline-lg {
+  font-family: var(--font-geist), sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.font-headline-md {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.font-body-lg {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+.font-body-md {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.font-mono-data {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.font-label-caps {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Timeline Animation Utilities */
+.timeline-node {
+  transition: all 0.5s ease;
+}
+
+.timeline-line {
+  transition: height 1s ease;
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #11110F;
+  background: #0A0A09;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #C86B4A;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #D99A7D;
+  background: rgba(255, 255, 255, 0.4);
 }
 
-/* Smooth selection */
 ::selection {
-  background-color: #C86B4A;
-  color: #11110F;
+  background-color: #F1F0EB;
+  color: #0A0A09;
 }

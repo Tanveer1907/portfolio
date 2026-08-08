@@ -1,4 +1,4 @@
-import { Playfair_Display, Inter, Geist } from "next/font/google";
+import { Playfair_Display, Inter, Geist, JetBrains_Mono } from "next/font/google";
 
 export const fontPlayfair = Playfair_Display({
   subsets: ["latin"],
@@ -17,4 +17,11 @@ export const fontGeist = Geist({
   variable: "--font-geist",
   display: "swap",
 });
+
+export const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 

@@ -1,138 +1,115 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
-import ParticleText from "@/components/ui/ParticleText";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-export default function HeroSection() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const [scrollProgressVal, setScrollProgressVal] = useState(0);
+interface HeroSectionProps {
+  onExplore: () => void;
+}
 
-  // Scroll Progress relative to Hero Section
+export default function HeroSection({ onExplore }: HeroSectionProps) {
+  const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
-    target: heroRef,
+    target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  // Hero transforms
-  const heroHeadlineOpacity = useTransform(scrollYProgress, [0.0, 0.5], [1, 0]);
-  const heroHeadlineY = useTransform(scrollYProgress, [0.0, 0.5], [0, -30]);
-
-  useEffect(() => {
-    return scrollYProgress.on("change", (v) => setScrollProgressVal(v));
-  }, [scrollYProgress]);
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
 
   return (
     <section
-      ref={heroRef}
+      ref={containerRef}
       id="home"
-      className="relative min-h-[100svh] flex flex-col justify-between pt-28 pb-16 px-6 max-w-5xl mx-auto"
+      className="relative w-full min-h-screen flex flex-col justify-center px-6 md:px-24 xl:px-48 border-b border-subtle overflow-hidden py-32 bg-[#0A0A09]"
     >
-      {/* Top Subtitle Tag / Log Metadata */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="pt-4"
-      >
-        <span className="font-geist text-xs uppercase tracking-widest text-[#C86B4A] font-medium flex flex-wrap items-center gap-2">
-          <span>ENGINEERING LOG // 2026</span>
-          <span className="opacity-40">•</span>
-          <span className="text-[#A6A197]">Computer Science Student &amp; Full-Stack Developer</span>
-        </span>
+      {/* Background Image Layer with Gradient & Parallax */}
+      <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <div className="absolute inset-0 w-full h-full bg-[#0A0A09]/90 z-10" />
+        <img
+          alt="Dark workspace"
+          className="w-full h-full object-cover object-right opacity-20 mix-blend-luminosity grayscale"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkk9YPHkxiQNwv9GIZEXyy89Sg2ldIfSAQ8DlRsf1pESHKVZ8tF28DgggnZk0mma2xBBSEq_J7yLC3Z01YCx8KfTg3kIHBH37LevsjHQtN0qcYtWtAyHP3dSNOqgrXqVR1dnAVIOuk1S2vebdHdcUNwSw8JCCgKYQ-fD7nrsigiGp2T42o569IUml8X42WAJlZmOI_fLJFl0HvveC0OfelfktEQeaNZ3n1lTwbp3R87H4WW2BwDe9S8w9pG_vSoBS4Xw"
+        />
       </motion.div>
 
-      {/* Main Single-Column Editorial Composition */}
-      <div className="my-auto py-12 space-y-8 max-w-4xl">
-        <motion.div
-          style={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : {
-                  opacity: heroHeadlineOpacity,
-                  y: heroHeadlineY,
-                }
-          }
-          className="hero-name my-4"
+      {/* Main Content Area */}
+      <motion.div style={{ y: textY, opacity }} className="relative z-20 flex flex-col gap-12 w-full mt-12">
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
+          className="font-hero-display-mobile md:text-[9vw] lg:text-[10vw] xl:text-[140px] text-[#F1F0EB] uppercase leading-[0.85] tracking-tighter"
         >
-          <ParticleText
-            text="TANVEER SINGH"
-            particleSize={2}
-            density={3}
-            color="#F1EDE3"
-            highlightColor="#C86B4A"
-            scatter={140}
-            gatherDuration={1400}
-            stagger={280}
-            pointerRepel={24}
-            repelRadius={100}
-            idleDrift={0.18}
-            trigger="mount"
-            textAlign="left"
-            fontSize="clamp(3.8rem, 9.5vw, 8.8rem)"
-            fontWeight={800}
-            fontFamily="inherit"
-            glow={false}
-            scatterProgress={shouldReduceMotion ? 0 : scrollProgressVal}
-          />
-        </motion.div>
+          I BUILD<br />
+          THINGS<br />
+          <span className="text-[#949087]">
+            TO UNDERSTAND<br />HOW THEY WORK.
+          </span>
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
-          className="font-inter text-xl sm:text-2xl text-[#A6A197] font-light leading-relaxed max-w-2xl"
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="font-body-lg text-[#cac6bf] max-w-2xl text-xl md:text-2xl mt-4"
         >
-          Computer science student building thoughtful software, interactive experiences, and systems that solve real problems.
+          Software developer passionate about building scalable systems and intuitive experiences.
         </motion.p>
 
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <motion.button
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.45 }}
-          className="flex flex-wrap gap-4 items-center pt-4"
+          transition={{ duration: 0.8, delay: 0.35 }}
+          onClick={onExplore}
+          className="group flex items-center gap-4 w-fit mt-8 border-b border-subtle hover:border-[#F1F0EB] pb-2 transition-all cursor-pointer"
         >
-          <button
-            onClick={() => scrollToSection("work")}
-            className="px-7 py-3.5 rounded-xl bg-[#C86B4A] text-[#11110F] font-geist text-xs font-semibold uppercase tracking-wider hover:bg-[#D99A7D] transition-colors shadow-sm cursor-pointer"
-          >
-            View Work
-          </button>
+          <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors text-sm tracking-[0.2em]">
+            EXPLORE
+          </span>
+          <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-all transform group-hover:translate-x-2">
+            arrow_forward
+          </span>
+        </motion.button>
+      </motion.div>
 
-          <button
-            onClick={() => scrollToSection("about")}
-            className="px-7 py-3.5 rounded-xl bg-transparent border border-[#F1EDE3]/18 text-[#F1EDE3] hover:bg-[#F1EDE3]/[0.06] font-geist text-xs font-medium uppercase tracking-wider transition-all cursor-pointer"
-          >
-            About Me
-          </button>
-        </motion.div>
+      {/* Social Links Bottom Left */}
+      <div className="absolute bottom-12 left-6 md:left-24 xl:left-48 flex gap-8 text-[#cac6bf] z-20">
+        <a
+          href="https://github.com/Tanveer1907"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-[#F1F0EB] transition-colors p-1"
+          aria-label="GitHub Profile"
+        >
+          <span className="material-symbols-outlined text-2xl">code</span>
+        </a>
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-[#F1F0EB] transition-colors p-1"
+          aria-label="LinkedIn Profile"
+        >
+          <span className="material-symbols-outlined text-2xl">work</span>
+        </a>
+        <a
+          href="mailto:tanveersingh.dev@gmail.com"
+          className="hover:text-[#F1F0EB] transition-colors p-1"
+          aria-label="Email Contact"
+        >
+          <span className="material-symbols-outlined text-2xl">mail</span>
+        </a>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.7 }}
-        className="flex items-center gap-3 pt-8 border-t border-[#F1EDE3]/12 text-[#A6A197]"
-      >
-        <button
-          onClick={() => scrollToSection("about")}
-          className="flex items-center gap-2 font-geist text-xs tracking-wider text-[#A6A197] hover:text-[#F1EDE3] transition-colors cursor-pointer"
-        >
-          <span>SCROLL TO DISCOVER</span>
-          <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
-        </button>
-      </motion.div>
+      {/* Scroll Down Indicator Bottom Right */}
+      <div className="absolute bottom-12 right-6 md:right-12 xl:right-24 flex items-center gap-3 text-[#949087] z-20 mix-blend-difference">
+        <span className="font-label-caps tracking-widest text-xs">SCROLL TO BEGIN</span>
+        <span className="material-symbols-outlined text-sm animate-bounce">
+          arrow_downward
+        </span>
+      </div>
     </section>
   );
 }

@@ -2,120 +2,56 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Code, BookOpen, Layers, Terminal } from "lucide-react";
 
-export default function AboutSection() {
-  const highlights = [
-    {
-      icon: Code,
-      title: "Full-Stack Development",
-      description: "Building responsive web applications using React, Next.js, Node.js, and TypeScript.",
-    },
-    {
-      icon: Layers,
-      title: "System Thinking",
-      description: "Focusing on clean architecture, maintainable codebases, and performant data structures.",
-    },
-    {
-      icon: BookOpen,
-      title: "Continuous Learning",
-      description: "Currently pursuing B.Tech in Computer Science and exploring system design & open source.",
-    },
-  ];
+interface AboutSectionProps {
+  onOpenExpandedAbout: () => void;
+}
 
-  const focusAreas = [
-    "System Design Primitives",
-    "DevOps & Containerization",
-    "AI / ML Fundamentals",
-    "Open Source Contributions",
-  ];
-
+export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps) {
   return (
-    <section id="about" className="py-24 px-6 max-w-6xl mx-auto border-t border-[#F1EDE3]/12">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        {/* Left Column: Heading & Narrative */}
-        <div className="lg:col-span-5 space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-3"
-          >
-            <div className="flex items-center justify-between text-[11px] font-geist font-medium tracking-widest text-[#A6A197]">
-              <span className="text-[#C86B4A] flex items-center gap-2">
-                <span>01 // OBSERVATIONS</span>
-              </span>
-              <span className="opacity-60">[ LOG REF 01 ]</span>
-            </div>
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="font-playfair text-4xl sm:text-5xl font-medium text-[#F1EDE3] tracking-tight"
-            >
-              A developer driven by curiosity.
-            </motion.h2>
-          </motion.div>
+    <section id="about" className="w-full min-h-screen flex flex-col lg:flex-row border-b border-subtle">
+      {/* Left Text Column */}
+      <div className="w-full lg:w-5/12 p-6 md:p-24 xl:p-32 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-subtle relative bg-[#0C0C0B]">
+        <span className="font-mono-data text-[#949087] mb-12 block">
+          01 / ABOUT
+        </span>
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="font-inter text-base text-[#A6A197] font-light leading-relaxed"
-          >
-            I&apos;m Tanveer Singh, a Computer Science student passionate about turning ideas into clean, functional software products. I enjoy understanding how software works under the hood and crafting intuitive interfaces for real users.
-          </motion.p>
+        <h2 className="font-headline-lg text-[#F1F0EB] uppercase tracking-wide mb-12 text-5xl md:text-6xl leading-tight">
+          Engineering<br />with Intent.
+        </h2>
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
-            className="p-5 rounded-xl bg-[#181815] border border-[#F1EDE3]/12 space-y-3"
-          >
-            <div className="flex items-center gap-2 text-xs font-geist text-[#F1EDE3] font-semibold uppercase tracking-wider">
-              <Terminal className="w-3.5 h-3.5 text-[#C86B4A]" />
-              <span>Currently Exploring</span>
-            </div>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-geist text-[#F1EDE3]/90">
-              {focusAreas.map((area) => (
-                <li key={area} className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C86B4A]" />
-                  <span>{area}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
+        <p className="font-body-lg text-[#cac6bf] mb-10 text-xl leading-relaxed">
+          Computer Science student who loves solving problems, building products and learning by doing. I focus on creating robust, scalable architectures that deliver seamless user experiences.
+        </p>
 
-        {/* Right Column: Key Philosophy Cards */}
-        <div className="lg:col-span-7 space-y-4">
-          {highlights.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: 0.3 + 0.12 * idx, ease: [0.22, 1, 0.36, 1] }}
-              className="p-6 rounded-xl bg-[#181815] border border-[#F1EDE3]/12 hover:border-[#F1EDE3]/18 transition-colors flex items-start gap-5 group"
-            >
-              <div className="p-3 rounded-lg bg-[#1D1C18] border border-[#F1EDE3]/12 text-[#F1EDE3] group-hover:border-[#C86B4A]/40 transition-colors">
-                <item.icon className="w-5 h-5" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-playfair text-xl font-medium text-[#F1EDE3]">
-                  {item.title}
-                </h3>
-                <p className="font-inter text-sm text-[#A6A197] font-light leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <p className="font-body-md text-[#949087] mb-16 text-lg">
+          My approach combines deep technical curiosity with an eye for refined, functional design.
+        </p>
+
+        <button
+          onClick={onOpenExpandedAbout}
+          className="group flex items-center gap-3 w-fit cursor-pointer"
+        >
+          <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors tracking-widest border-b border-transparent group-hover:border-[#F1F0EB] pb-1">
+            FULL PROFILE
+          </span>
+          <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-all transform group-hover:translate-x-2">
+            arrow_forward
+          </span>
+        </button>
+      </div>
+
+      {/* Right Image Column */}
+      <div className="w-full lg:w-7/12 h-[60vh] lg:h-auto relative bg-[#121110] overflow-hidden">
+        <motion.img
+          initial={{ scale: 1.05 }}
+          whileInView={{ scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          viewport={{ once: true }}
+          alt="Minimalist desk setup with warm light"
+          className="w-full h-full object-cover opacity-70 mix-blend-lighten grayscale hover:grayscale-0 transition-all duration-700"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAucd8v3BHfYQQaNOLnBE7Y3j86yfKJOrQmwGgbiLnC5Pqyj_YXaFp08RY7BGSzptSZ--8SB1rBfcLVt7H8XgGX9yUWDKMJ4f81HqroSEQT-7ZdkieUChPxelklEATU9OXY2dMPS39VyeVVuO541zadY9HBp0k4A4UYahJ6Lhbf_Zuac_ryevCttIfNN-5Qg_K4ye8Qf5OWhTAscsLKI4-B-TFHTwM7pVdRiYgDJuyNl0sPLbMsAg5J"
+        />
       </div>
     </section>
   );

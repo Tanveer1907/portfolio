@@ -1,111 +1,73 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
+
+const JOURNEY_ITEMS = [
+  {
+    year: "2022",
+    title: "Started Programming",
+    details: "C++ / Data Structures & Algorithms fundamentals.",
+  },
+  {
+    year: "2023",
+    title: "Explored Web Development",
+    details: "Built first full-stack web applications and interactive UIs.",
+  },
+  {
+    year: "2024",
+    title: "Building & Learning",
+    details: "React / Backend engineering / Database Systems (MySQL & MongoDB).",
+  },
+  {
+    year: "2025–2026",
+    title: "Becoming",
+    details: "More complex systems, campus platforms, hackathons, and software experiments.",
+  },
+];
 
 export default function JourneySection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 60%", "end 75%"],
-  });
-
-  const lineScaleY = useSpring(scrollYProgress, { stiffness: 200, damping: 28 });
-
-  const milestones = [
-    {
-      num: "01",
-      period: "FOUNDATIONS",
-      title: "Computer Science Education",
-      subtitle: "B.Tech Computer Science & Engineering",
-      detail:
-        "Building core computer science knowledge: algorithms, data structures, object-oriented design, and computing principles.",
-    },
-    {
-      num: "02",
-      period: "EXPLORATION",
-      title: "Discovering Web Technologies",
-      subtitle: "Frontend Architecture & JavaScript",
-      detail:
-        "Transitioned from initial static sites to modular JavaScript and component-driven UI paradigms with React and CSS tooling.",
-    },
-    {
-      num: "03",
-      period: "PRACTICE",
-      title: "Full-Stack Project Development",
-      subtitle: "Next.js, Node.js & Database Systems",
-      detail:
-        "Engineered full-stack applications like HackConnect and Chitkara Diaries, focusing on real-time features, state management, and user interaction.",
-    },
-    {
-      num: "04",
-      period: "CURRENT FOCUS",
-      title: "Systems & Production Quality",
-      subtitle: "Clean Code & Modern Software Engineering",
-      detail:
-        "Focusing on scalable software design, API performance, developer tooling, and building thoughtful digital products.",
-    },
-  ];
-
   return (
-    <section ref={sectionRef} id="journey" className="py-24 px-6 max-w-6xl mx-auto border-t border-[#F1EDE3]/12">
-      <div className="max-w-3xl mb-16 space-y-3">
-        <div className="flex items-center justify-between text-[11px] font-geist font-medium tracking-widest text-[#A6A197]">
-          <span className="text-[#C86B4A]">02 // THE JOURNEY</span>
-          <span className="opacity-60">[ LOG REF 02 ]</span>
-        </div>
-        <h2 className="font-playfair text-4xl sm:text-5xl font-medium text-[#F1EDE3] tracking-tight">
-          Growth &amp; Milestones
+    <section id="journey" className="flex flex-col w-full border-b border-subtle">
+      {/* Section Header */}
+      <div className="p-6 md:p-12 pb-6">
+        <span className="font-mono-data text-[#949087] block mb-2">04</span>
+        <h2 className="font-headline-lg text-[#f5eee0] uppercase tracking-wide">
+          JOURNEY
         </h2>
-        <p className="font-inter text-base text-[#A6A197] font-light leading-relaxed">
-          Tracing the natural progression from core computer science fundamentals to building full-stack web applications.
+        <p className="font-body-md text-[#cac6bf] mt-4 max-w-md">
+          A timeline of my learning, experiences and everything in between.
         </p>
       </div>
 
-      {/* Progressively Scroll-Drawn Timeline Vector */}
-      <div className="relative pl-6 sm:pl-8 space-y-14 max-w-4xl">
-        {/* Static Track Line */}
-        <div className="absolute left-[3px] sm:left-[3px] top-3 bottom-3 w-[1px] bg-[#F1EDE3]/12" />
+      {/* Minimal Vertical Timeline */}
+      <div className="p-6 md:p-12 border-t border-subtle relative">
+        <div className="absolute left-6 md:left-12 top-12 bottom-12 w-[1px] bg-subtle" />
 
-        {/* Scroll-Drawn Active Vector Line */}
-        <motion.div
-          style={{ scaleY: lineScaleY, transformOrigin: "top" }}
-          className="absolute left-[3px] sm:left-[3px] top-3 bottom-3 w-[2px] bg-[#C86B4A]"
-        />
-
-        {milestones.map((m, idx) => {
-          return (
+        <div className="space-y-12 pl-8 md:pl-12 relative z-10">
+          {JOURNEY_ITEMS.map((item, idx) => (
             <motion.div
-              key={m.title}
+              key={item.year}
               initial={{ opacity: 0, x: -15 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 * idx }}
-              className="relative space-y-2 group pl-4"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="relative group"
             >
-              {/* Interactive Milestone Dot */}
-              <div className="absolute -left-[27px] sm:-left-[35px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#11110F] border-2 border-[#A6A197] group-hover:border-[#C86B4A] transition-colors" />
+              <div className="absolute -left-[37px] md:-left-[53px] top-1.5 w-3 h-3 rounded-full bg-[#0A0A09] border border-[#cac6bf] group-hover:border-[#f5eee0] group-hover:bg-[#f5eee0] transition-colors" />
 
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="font-geist text-[10px] font-semibold tracking-widest uppercase text-[#F1EDE3] px-2.5 py-0.5 rounded bg-[#181815] border border-[#F1EDE3]/12">
-                  {m.num} :: {m.period}
-                </span>
-                <span className="font-geist text-xs text-[#A6A197]">
-                  {m.subtitle}
-                </span>
-              </div>
-
-              <h3 className="font-playfair text-2xl font-medium text-[#F1EDE3]">
-                {m.title}
+              <span className="font-mono-data text-xs text-[#949087] block mb-1">
+                {item.year}
+              </span>
+              <h3 className="font-headline-md text-[#f5eee0] group-hover:text-white transition-colors">
+                {item.title}
               </h3>
-
-              <p className="font-inter text-sm text-[#A6A197] font-light leading-relaxed max-w-2xl">
-                {m.detail}
+              <p className="font-body-md text-[#cac6bf] mt-1 max-w-lg">
+                {item.details}
               </p>
             </motion.div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,155 +1,93 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, CheckCircle2, Github, Linkedin } from "lucide-react";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const email = "tanveer.singh07@gmail.com";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 4000);
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   return (
-    <section id="contact" className="py-24 px-6 max-w-6xl mx-auto border-t border-[#F1EDE3]/12 mb-16">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        {/* Left Column: Heading & Social Links */}
-        <div className="lg:col-span-5 space-y-8">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-[11px] font-geist font-medium tracking-widest text-[#A6A197]">
-              <span className="text-[#C86B4A]">05 // CONTACT</span>
-              <span className="opacity-60">[ LOG REF 05 ]</span>
-            </div>
-            <h2 className="font-playfair text-4xl sm:text-5xl font-medium text-[#F1EDE3] tracking-tight">
-              Let&apos;s build something.
-            </h2>
-            <p className="font-inter text-base text-[#A6A197] font-light leading-relaxed">
-              Have a project in mind, an opportunity to discuss, or just want to get in touch? Send a message directly.
-            </p>
-          </div>
-
-          {/* Authentic Social Links */}
-          <div className="space-y-3 pt-2">
-            <a
-              href="https://github.com/Tanveer1907"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-4 p-4 rounded-xl bg-[#181815] border border-[#F1EDE3]/12 hover:border-[#F1EDE3]/18 transition-colors group"
-            >
-              <div className="p-2.5 rounded-lg bg-[#1D1C18] text-[#F1EDE3] group-hover:scale-105 transition-transform">
-                <Github className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="block font-geist text-xs text-[#A6A197] uppercase tracking-wider">
-                  GitHub Profile
-                </span>
-                <span className="font-geist text-sm text-[#F1EDE3] font-medium">
-                  github.com/Tanveer1907
-                </span>
-              </div>
-            </a>
-
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-4 p-4 rounded-xl bg-[#181815] border border-[#F1EDE3]/12 hover:border-[#F1EDE3]/18 transition-colors group"
-            >
-              <div className="p-2.5 rounded-lg bg-[#1D1C18] text-[#F1EDE3] group-hover:scale-105 transition-transform">
-                <Linkedin className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="block font-geist text-xs text-[#A6A197] uppercase tracking-wider">
-                  LinkedIn Network
-                </span>
-                <span className="font-geist text-sm text-[#F1EDE3] font-medium">
-                  linkedin.com/in/tanveer-singh
-                </span>
-              </div>
-            </a>
-          </div>
+    <section id="connect" className="w-full flex flex-col md:flex-row border-b border-subtle bg-[#0C0C0B]">
+      {/* Left Column */}
+      <div className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center border-b md:border-b-0 md:border-r border-subtle">
+        <span className="font-mono-data text-[#949087] mb-12 block">
+          05 / CONNECT
+        </span>
+        <h2 className="font-headline-lg text-[#F1F0EB] uppercase tracking-wide mb-8 text-5xl md:text-6xl">
+          Let&apos;s<br />Build.
+        </h2>
+        <p className="font-body-lg text-[#cac6bf] mb-16 max-w-sm text-xl">
+          Have an idea, a project, or just want to say hi? I&apos;d love to connect.
+        </p>
+        <div className="flex flex-wrap items-center gap-6">
+          <a
+            href={`mailto:${email}`}
+            className="group flex items-center gap-4 w-fit border-b border-[#cac6bf] hover:border-[#F1F0EB] pb-2 transition-all"
+          >
+            <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors tracking-widest text-xs">
+              GET IN TOUCH
+            </span>
+            <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-all transform group-hover:translate-x-2 md:-rotate-45">
+              arrow_forward
+            </span>
+          </a>
+          <button
+            onClick={handleCopyEmail}
+            className="font-mono-data text-xs text-[#949087] hover:text-[#F1F0EB] transition-colors cursor-pointer"
+          >
+            {copied ? "COPIED ✓" : "COPY EMAIL"}
+          </button>
         </div>
+      </div>
 
-        {/* Right Column: Contact Form */}
-        <div className="lg:col-span-7 bg-[#181815] border border-[#F1EDE3]/12 rounded-2xl p-8 sm:p-10 shadow-lg">
-          {submitted ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="py-12 text-center space-y-4"
-            >
-              <div className="w-14 h-14 rounded-full bg-[#C86B4A]/10 text-[#C86B4A] flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-7 h-7" />
-              </div>
-              <h3 className="font-playfair text-3xl font-medium text-[#F1EDE3]">
-                Message Sent
-              </h3>
-              <p className="font-inter text-sm text-[#A6A197]">
-                Thank you for reaching out. I will review your message and reply as soon as possible.
-              </p>
-            </motion.div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <label className="block font-geist text-xs font-semibold text-[#F1EDE3] uppercase tracking-wider">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Enter your name..."
-                  className="w-full bg-[#11110F] border border-[#F1EDE3]/12 focus:border-[#C86B4A] rounded-xl px-4 py-3 text-sm text-[#F1EDE3] placeholder-[#A6A197]/50 outline-none transition-colors"
-                />
-              </div>
+      {/* Right Column Links */}
+      <div className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center gap-12 bg-[#0A0A09]">
+        <a
+          href={`mailto:${email}`}
+          className="flex items-center gap-8 group cursor-pointer"
+        >
+          <span className="material-symbols-outlined text-[#949087] group-hover:text-[#F1F0EB] transition-colors text-3xl">
+            mail
+          </span>
+          <span className="font-mono-data text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors text-xl">
+            {email}
+          </span>
+        </a>
 
-              <div className="space-y-2">
-                <label className="block font-geist text-xs font-semibold text-[#F1EDE3] uppercase tracking-wider">
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="Enter your email address..."
-                  className="w-full bg-[#11110F] border border-[#F1EDE3]/12 focus:border-[#C86B4A] rounded-xl px-4 py-3 text-sm text-[#F1EDE3] placeholder-[#A6A197]/50 outline-none transition-colors"
-                />
-              </div>
+        <a
+          href="https://github.com/Tanveer1907"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-8 group cursor-pointer"
+        >
+          <span className="material-symbols-outlined text-[#949087] group-hover:text-[#F1F0EB] transition-colors text-3xl">
+            code
+          </span>
+          <span className="font-mono-data text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors text-xl">
+            github.com/Tanveer1907
+          </span>
+        </a>
 
-              <div className="space-y-2">
-                <label className="block font-geist text-xs font-semibold text-[#F1EDE3] uppercase tracking-wider">
-                  Message
-                </label>
-                <textarea
-                  required
-                  rows={5}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Write your message details..."
-                  className="w-full bg-[#11110F] border border-[#F1EDE3]/12 focus:border-[#C86B4A] rounded-xl px-4 py-3 text-sm text-[#F1EDE3] placeholder-[#A6A197]/50 outline-none transition-colors resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-4 rounded-xl bg-[#C86B4A] hover:bg-[#D99A7D] text-[#11110F] font-geist text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
-              >
-                <Send className="w-4 h-4" />
-                <span>Send Message</span>
-              </button>
-            </form>
-          )}
-        </div>
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-8 group cursor-pointer"
+        >
+          <span className="material-symbols-outlined text-[#949087] group-hover:text-[#F1F0EB] transition-colors text-3xl">
+            work
+          </span>
+          <span className="font-mono-data text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors text-xl">
+            linkedin.com/in/tanveersingh
+          </span>
+        </a>
       </div>
     </section>
   );

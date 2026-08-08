@@ -1,52 +1,122 @@
 "use client";
 
-import React from "react";
-import GlobalBackground from "@/components/layout/GlobalBackground";
-import ScrollNavigation from "@/components/navigation/ScrollNavigation";
+import React, { useState, useEffect } from "react";
+import TopHeader from "@/components/navigation/TopHeader";
+import SideSectionIndicator from "@/components/navigation/SideSectionIndicator";
+import MenuOverlay from "@/components/navigation/MenuOverlay";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
-import JourneySection from "@/components/sections/JourneySection";
+import ExpandedAboutModal from "@/components/sections/ExpandedAboutModal";
 import ProjectsSection from "@/components/sections/ProjectsSection";
+import ProjectDetailModal from "@/components/sections/ProjectDetailModal";
+import AllProjectsModal from "@/components/sections/AllProjectsModal";
 import SkillsSection from "@/components/sections/SkillsSection";
+import JourneyMapSection from "@/components/sections/JourneyMapSection";
 import ContactSection from "@/components/sections/ContactSection";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
+  const [activeSection, setActiveSection] = useState<string>("home");
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isExpandedAboutOpen, setIsExpandedAboutOpen] = useState<boolean>(false);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [isAllProjectsOpen, setIsAllProjectsOpen] = useState<boolean>(false);
+
+  // Scroll section observer to highlight SideSectionIndicator 01..05
+  useEffect(() => {
+    const sectionIds = ["home", "about", "projects", "skills", "journey", "connect"];
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight * 0.35;
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveSection(sectionIds[i]);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const targetId = id === "hero" ? "home" : id;
+    const el = document.getElementById(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="relative min-h-screen bg-[#11110F] text-[#F1EDE3] selection:bg-[#C86B4A] selection:text-[#11110F]">
-      {/* Persistent Global Background */}
-      <GlobalBackground />
+    <div className="relative min-h-screen bg-[#0A0A09] text-[#F1F0EB] antialiased overflow-x-hidden w-full">
+      {/* Top Header Navigation */}
+      <TopHeader onOpenMenu={() => setIsMenuOpen(true)} />
 
-      {/* Viewport-Level Persistent Navigation Layer */}
-      <ScrollNavigation />
+      {/* Side Section Indicators */}
+      <SideSectionIndicator
+        activeSection={activeSection}
+        onSelectSection={scrollToSection}
+      />
 
-      {/* Main Content Canvas */}
-      <main className="relative z-10">
-        {/* Narrative 1: Hero */}
-        <HeroSection />
+      {/* Main Single-Column Full Viewport Journey Flow */}
+      <main className="w-full flex flex-col">
+        {/* 01 HERO SECTION */}
+        <HeroSection onExplore={() => scrollToSection("about")} />
 
-        {/* Narrative 2: About */}
-        <AboutSection />
+        {/* 02 ABOUT SECTION */}
+        <AboutSection
+          onOpenExpandedAbout={() => setIsExpandedAboutOpen(true)}
+        />
 
-        {/* Narrative 3: Journey */}
-        <JourneySection />
+        {/* 03 SELECTED WORKS / PROJECTS */}
+        <ProjectsSection
+          onOpenProjectDetail={(id) => setSelectedProjectId(id)}
+          onOpenAllProjects={() => setIsAllProjectsOpen(true)}
+        />
 
-        {/* Narrative 4: Selected Projects */}
-        <ProjectsSection />
-
-        {/* Narrative 5: Engineering Toolkit */}
+        {/* 04 ENGINEERING TOOLKIT / SKILLS */}
         <SkillsSection />
 
-        {/* Narrative 6: Contact */}
+        {/* 05 THE JOURNEY / VISUAL MAP */}
+        <JourneyMapSection />
+
+        {/* 06 LET'S BUILD / CONNECT */}
         <ContactSection />
+
+        {/* FOOTER */}
+        <Footer />
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-[#F1EDE3]/12 py-8 text-center text-xs font-geist text-[#A6A197]">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span>&copy; {new Date().getFullYear()} Tanveer Singh. All rights reserved.</span>
-          <span>Computer Science Student &amp; Developer</span>
-        </div>
-      </footer>
+      {/* Overlays and Modals */}
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onSelectSection={scrollToSection}
+      />
+
+      <ExpandedAboutModal
+        isOpen={isExpandedAboutOpen}
+        onClose={() => setIsExpandedAboutOpen(false)}
+      />
+
+      <ProjectDetailModal
+        projectId={selectedProjectId}
+        onClose={() => setSelectedProjectId(null)}
+      />
+
+      <AllProjectsModal
+        isOpen={isAllProjectsOpen}
+        onClose={() => setIsAllProjectsOpen(false)}
+        onSelectProject={(id) => setSelectedProjectId(id)}
+      />
     </div>
   );
 }
