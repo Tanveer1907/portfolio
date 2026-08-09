@@ -3,9 +3,19 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
-import { EASING, DURATION } from "@/lib/animations/tokens";
+import { EASING, DURATION, STAGGER } from "@/lib/animations/tokens";
 
-const TOOLKIT_DATA = [
+
+export interface SkillItemData {
+  name: string;
+  status: string;
+  image?: string;
+  icon?: string;
+  logo?: string;
+  level?: string;
+}
+
+const TOOLKIT_DATA: { category: string; items: SkillItemData[] }[] = [
   {
     category: "LANGUAGES",
     items: [
@@ -40,10 +50,10 @@ export default function SkillsSection() {
 
   return (
     <section id="skills" className="w-full border-b border-subtle bg-[#0C0C0B] py-32 px-6 md:px-24 xl:px-48">
-      <Reveal staggerChildren={0.08}>
+      <Reveal staggerChildren={STAGGER.MEDIUM}>
         <RevealItem>
           <span className="font-mono-data text-[#949087] mb-12 block">
-            03 / ENGINEERING TOOLKIT
+            04 / ENGINEERING TOOLKIT
           </span>
         </RevealItem>
       </Reveal>
@@ -66,14 +76,19 @@ export default function SkillsSection() {
                   viewport={{ once: true, margin: "-10% 0px" }}
                   transition={{
                     duration: DURATION.MEDIUM,
-                    delay: (colIdx * 4 + itemIdx) * 0.06,
+                    delay: (colIdx * 4 + itemIdx) * 0.05,
                     ease: EASING.editorial,
                   }}
                   className="flex items-center justify-between group cursor-default transition-all duration-300 hover:translate-x-1"
                 >
-                  <span className="font-body-lg text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors duration-300">
-                    {item.name}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    {item.logo && (
+                      <img src={item.logo} alt={item.name} className="w-4 h-4 object-contain opacity-70 group-hover:opacity-100" />
+                    )}
+                    <span className="font-body-lg text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors duration-300">
+                      {item.name}
+                    </span>
+                  </div>
                   <span className="font-mono-data text-[#949087] group-hover:text-[#F1F0EB] text-xs uppercase tracking-widest transition-colors duration-300">
                     {item.status}
                   </span>

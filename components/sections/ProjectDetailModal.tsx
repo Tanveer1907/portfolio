@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLenisScroll } from "@/hooks/useLenisScroll";
+import { EASING, DURATION } from "@/lib/animations/tokens";
 
 interface ProjectDetailModalProps {
   projectId: string | null;
@@ -76,7 +78,7 @@ const PROJECTS_DATA: Record<
     problem:
       "Overly cluttered task managers reduce focus and add management overhead for solo developers.",
     approach:
-      "Built a ultra-minimalist, keyboard-first task flow tool with local storage persistence and workflow metrics.",
+      "Built an ultra-minimalist, keyboard-first task flow tool with local storage persistence and workflow metrics.",
     architecture: [
       "State Management: Zustand reactive store with atomic selectors.",
       "Persistence: IndexedDB browser storage with instant sync fallback.",
@@ -95,24 +97,74 @@ export default function ProjectDetailModal({
   projectId,
   onClose,
 }: ProjectDetailModalProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const { lockScroll, unlockScroll } = useLenisScroll();
   const project = projectId ? PROJECTS_DATA[projectId] || PROJECTS_DATA["chitkara-diaries"] : null;
+
+  useEffect(() => {
+    if (!project) return;
+
+    lockScroll();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      unlockScroll();
+    };
+  }, [project, lockScroll, unlockScroll, onClose]);
+
+  // Handle native trackpad gesture, mouse wheel & touch scrolling inside modal container
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || !project) return;
+
+    const onWheel = (e: WheelEvent) => {
+      e.stopPropagation();
+      el.scrollTop += e.deltaY;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      e.stopPropagation();
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("touchmove", onTouchMove);
+    };
+  }, [project]);
 
   return (
     <AnimatePresence>
       {project && (
         <motion.div
+          ref={containerRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 bg-[#0A0A09]/95 backdrop-blur-md text-[#e6e2df] overflow-y-auto p-6 md:p-16 flex flex-col justify-between"
+          transition={{ duration: DURATION.FAST, ease: EASING.editorial }}
+          tabIndex={0}
+          data-lenis-prevent="true"
+          data-lenis-prevent-touch="true"
+          data-lenis-prevent-wheel="true"
+          className="fixed inset-0 z-50 bg-[#0A0A09]/98 text-[#F1F0EB] overflow-y-auto overscroll-contain touch-pan-y p-6 md:p-16 flex flex-col justify-between"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
-          <div className="max-w-4xl mx-auto w-full space-y-12">
+          <div className="max-w-4xl mx-auto w-full space-y-12 py-6">
             {/* Header Navigation */}
             <div className="flex justify-between items-center border-b border-subtle pb-6">
               <button
                 onClick={onClose}
-                className="group flex items-center gap-2 text-xs font-label-caps text-[#cac6bf] hover:text-[#f5eee0] transition-colors cursor-pointer"
+                className="group flex items-center gap-2 text-xs font-label-caps text-[#cac6bf] hover:text-[#F1F0EB] transition-colors cursor-pointer p-1"
               >
                 <span className="material-symbols-outlined text-sm transform group-hover:-translate-x-1 transition-transform">
                   arrow_back
@@ -126,10 +178,10 @@ export default function ProjectDetailModal({
 
             {/* Title & Metadata */}
             <div>
-              <span className="font-label-caps text-xs text-[#949087] block mb-2">
+              <span className="font-label-caps text-xs text-[#949087] block mb-2 tracking-widest">
                 {project.category}
               </span>
-              <h1 className="font-hero-display text-4xl sm:text-6xl text-[#f5eee0] uppercase mb-6">
+              <h1 className="font-hero-display text-4xl sm:text-6xl text-[#F1F0EB] uppercase mb-6 tracking-tight">
                 {project.title}
               </h1>
               <div className="flex flex-wrap gap-2 pt-2">
@@ -149,7 +201,7 @@ export default function ProjectDetailModal({
               <img
                 src={project.interfaceImage}
                 alt={`${project.title} interface preview`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover grayscale opacity-90"
               />
             </div>
 
@@ -158,7 +210,7 @@ export default function ProjectDetailModal({
               <span className="font-mono-data text-xs text-[#949087] block">
                 01 // THE PROBLEM
               </span>
-              <h2 className="font-headline-md text-[#f5eee0]">
+              <h2 className="font-headline-md text-[#F1F0EB] text-xl">
                 Identifying the Core Constraint
               </h2>
               <p className="font-body-lg text-[#cac6bf] leading-relaxed">
@@ -171,7 +223,7 @@ export default function ProjectDetailModal({
               <span className="font-mono-data text-xs text-[#949087] block">
                 02 // MY APPROACH
               </span>
-              <h2 className="font-headline-md text-[#f5eee0]">
+              <h2 className="font-headline-md text-[#F1F0EB] text-xl">
                 Engineering the Solution
               </h2>
               <p className="font-body-lg text-[#cac6bf] leading-relaxed">
@@ -184,7 +236,7 @@ export default function ProjectDetailModal({
               <span className="font-mono-data text-xs text-[#949087] block">
                 03 // SYSTEM ARCHITECTURE
               </span>
-              <h2 className="font-headline-md text-[#f5eee0]">
+              <h2 className="font-headline-md text-[#F1F0EB] text-xl">
                 Architectural Breakdown
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -204,7 +256,7 @@ export default function ProjectDetailModal({
               <span className="font-mono-data text-xs text-[#949087] block">
                 04 // WHAT I LEARNED
               </span>
-              <h2 className="font-headline-md text-[#f5eee0]">
+              <h2 className="font-headline-md text-[#F1F0EB] text-xl">
                 Engineering Insights &amp; Takeaways
               </h2>
               <ul className="space-y-3 font-body-md text-[#cac6bf] list-disc list-inside">
@@ -221,7 +273,7 @@ export default function ProjectDetailModal({
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2 font-label-caps text-xs text-[#f5eee0] border-b border-[#f5eee0] pb-1 hover:text-[#cac6bf] hover:border-[#cac6bf] transition-colors"
+                  className="group flex items-center gap-2 font-label-caps text-xs text-[#F1F0EB] border-b border-[#F1F0EB] pb-1 hover:text-[#cac6bf] hover:border-[#cac6bf] transition-colors"
                 >
                   <span>GITHUB REPOSITORY</span>
                   <span className="material-symbols-outlined text-sm transform group-hover:translate-x-1 transition-transform">
@@ -232,7 +284,7 @@ export default function ProjectDetailModal({
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2 font-label-caps text-xs text-[#f5eee0] border-b border-[#f5eee0] pb-1 hover:text-[#cac6bf] hover:border-[#cac6bf] transition-colors"
+                  className="group flex items-center gap-2 font-label-caps text-xs text-[#F1F0EB] border-b border-[#F1F0EB] pb-1 hover:text-[#cac6bf] hover:border-[#cac6bf] transition-colors"
                 >
                   <span>LIVE PROJECT</span>
                   <span className="material-symbols-outlined text-sm transform group-hover:translate-x-1 transition-transform">
@@ -243,7 +295,7 @@ export default function ProjectDetailModal({
 
               <button
                 onClick={onClose}
-                className="font-label-caps text-xs text-[#949087] hover:text-[#f5eee0] transition-colors cursor-pointer"
+                className="font-label-caps text-xs text-[#949087] hover:text-[#F1F0EB] transition-colors cursor-pointer p-1"
               >
                 CLOSE CASE STUDY ✕
               </button>

@@ -18,3 +18,10 @@ export const STAGGER = {
   SLOW: 0.12,
   ROW: 0.06,
 };
+
+export const DISTANCE = {
+  HOVER_X: 6,
+  HOVER_Y: 4,
+  PARALLAX_MAX: 20,
+};
+

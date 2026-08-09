@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, MotionValue } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -9,36 +9,36 @@ const MILESTONES = [
     year: "2022",
     title: "STARTED PROGRAMMING",
     details:
-      "C++ and Data Structures. Focused on understanding algorithms, memory and problem solving.",
-    scrollRange: [0.12, 0.28] as [number, number],
+      "C++ and Data Structures. Focused on understanding algorithms, memory management and computational problem solving.",
+    scrollRange: [0.10, 0.26] as [number, number],
   },
   {
     year: "2023",
     title: "EXPLORED WEB DEVELOPMENT",
     details:
-      "Built my first full-stack projects. Started understanding client-server architecture, APIs and databases.",
-    scrollRange: [0.28, 0.44] as [number, number],
+      "Built my first full-stack applications. Developed deep understanding of client-server architecture, REST APIs and relational databases.",
+    scrollRange: [0.26, 0.42] as [number, number],
   },
   {
     year: "2024",
     title: "BUILDING & LEARNING",
     details:
-      "Working on real projects with React, Node.js, MySQL and modern web tooling.",
-    scrollRange: [0.44, 0.60] as [number, number],
+      "Engaged in real production projects with React, Node.js, Express, MySQL and modern frontend & backend web tooling.",
+    scrollRange: [0.42, 0.58] as [number, number],
   },
   {
     year: "2025",
     title: "BUILDING SYSTEMS",
     details:
-      "Turning ideas and academic projects into things people can actually use.",
-    scrollRange: [0.60, 0.76] as [number, number],
+      "Transforming complex requirements and academic projects into highly performant, accessible applications people can actually use.",
+    scrollRange: [0.58, 0.74] as [number, number],
   },
   {
     year: "2026",
     title: "GOING DEEPER",
     details:
-      "Learning how systems work underneath the interface — from algorithms to architecture.",
-    scrollRange: [0.76, 0.92] as [number, number],
+      "Mastering core engineering depth — from low-level systems algorithms and state synchronization to scalable cloud micro-architectures.",
+    scrollRange: [0.74, 0.90] as [number, number],
   },
 ];
 
@@ -48,11 +48,11 @@ export default function JourneyMapSection() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 65%", "end 80%"],
+    offset: ["start 60%", "end 80%"],
   });
 
-  // SVG Path progress line mapping
-  const pathHeight = useTransform(scrollYProgress, [0.08, 0.9], ["0%", "100%"]);
+  // SVG Path progress line height mapping
+  const pathHeight = useTransform(scrollYProgress, [0.08, 0.92], ["0%", "100%"]);
 
   return (
     <section
@@ -61,7 +61,7 @@ export default function JourneyMapSection() {
       className="w-full border-b border-subtle bg-[#0A0A09] py-32 px-6 md:px-24 xl:px-48 relative overflow-hidden"
     >
       <span className="font-mono-data text-[#949087] mb-12 block">
-        04 / THE JOURNEY
+        05 / THE JOURNEY
       </span>
 
       {/* Header */}
@@ -69,8 +69,8 @@ export default function JourneyMapSection() {
         <h2 className="font-headline-lg text-[#F1F0EB] uppercase tracking-wide text-5xl md:text-6xl">
           The<br />Journey
         </h2>
-        <p className="font-body-md text-[#cac6bf] max-w-md lg:text-right self-end text-lg">
-          A timeline of learning, building, and exploring systems architecture.
+        <p className="font-body-md text-[#cac6bf] max-w-md lg:text-right self-end text-lg leading-relaxed">
+          A real-time timeline of continuous growth, engineering milestones, and systems exploration.
         </p>
       </Reveal>
 
@@ -82,21 +82,19 @@ export default function JourneyMapSection() {
         {/* Scroll-Animated Active Line */}
         <motion.div
           style={{ height: reduced ? "100%" : pathHeight }}
-          className="absolute left-[11px] md:left-[19px] top-0 w-[2px] bg-[#F1F0EB] origin-top shadow-[0_0_10px_rgba(241,240,235,0.3)] z-10"
+          className="absolute left-[11px] md:left-[19px] top-0 w-[2px] bg-[#F1F0EB] origin-top z-10"
         />
 
         {/* Timeline Items */}
-        <div className="relative flex flex-col gap-24 md:gap-32">
-          {MILESTONES.map((item) => {
-            return (
-              <MilestoneItem
-                key={item.year}
-                item={item}
-                scrollYProgress={scrollYProgress}
-                reduced={reduced ?? false}
-              />
-            );
-          })}
+        <div className="relative flex flex-col gap-20 md:gap-28">
+          {MILESTONES.map((item) => (
+            <MilestoneItem
+              key={item.year}
+              item={item}
+              scrollYProgress={scrollYProgress}
+              reduced={reduced ?? false}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -112,6 +110,8 @@ function MilestoneItem({
   scrollYProgress: MotionValue<number>;
   reduced: boolean;
 }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   // Compute active status dynamically based on scroll progress
   const opacityVal = useTransform(
     scrollYProgress,
@@ -119,22 +119,38 @@ function MilestoneItem({
     [0.35, 1, 0.75]
   );
 
+  const markerBg = useTransform(
+    scrollYProgress,
+    [item.scrollRange[0] - 0.02, item.scrollRange[0]],
+    ["#0A0A09", "#F1F0EB"]
+  );
+
   return (
     <motion.div
       style={{ opacity: reduced ? 1 : opacityVal }}
-      className="relative flex flex-col md:flex-row gap-6 md:gap-12 items-start pl-8 md:pl-16 group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={() => setTimeout(() => setIsHovered(false), 2000)}
+      whileHover={{ x: 6 }}
+      whileTap={{ scale: 0.98 }}
+      className="relative flex flex-col md:flex-row gap-6 md:gap-12 items-start pl-8 md:pl-16 group p-4 md:p-6 rounded-lg border border-transparent hover:border-subtle hover:bg-[#121110]/60 transition-all duration-300 cursor-pointer"
     >
       {/* Interactive Node Marker */}
-      <div className="absolute -left-[3px] md:left-[11px] top-2 flex items-center justify-center z-20">
+      <div className="absolute -left-[3px] md:left-[11px] top-6 flex items-center justify-center z-20">
         <motion.div
-          animate={reduced ? undefined : { scale: [1, 1.15, 1] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="w-4 h-4 rotate-45 border border-[#F1F0EB] bg-[#0A0A09] group-hover:bg-[#F1F0EB] group-hover:shadow-[0_0_12px_rgba(241,240,235,0.8)] transition-all duration-300"
+          animate={{
+            scale: isHovered ? 1.35 : 1,
+            backgroundColor: isHovered ? "#F1F0EB" : undefined,
+          }}
+          transition={{ duration: 0.2 }}
+          style={{ backgroundColor: reduced ? "#F1F0EB" : markerBg }}
+          className="w-4 h-4 rotate-45 border border-[#F1F0EB] group-hover:bg-[#F1F0EB] transition-colors duration-300 shadow-md"
         />
       </div>
 
       {/* Year Label */}
-      <div className="font-mono-data text-xl text-[#F1F0EB] w-24 flex-shrink-0 pt-0.5 tracking-wider font-semibold">
+      <div className="font-mono-data text-xl text-[#F1F0EB] w-24 flex-shrink-0 pt-0.5 tracking-wider font-semibold group-hover:text-white transition-colors">
         {item.year}
       </div>
 
@@ -143,7 +159,7 @@ function MilestoneItem({
         <h3 className="font-headline-md text-[#F1F0EB] text-2xl uppercase tracking-wide group-hover:text-white transition-colors">
           {item.title}
         </h3>
-        <p className="font-body-md text-[#cac6bf] text-base leading-relaxed">
+        <p className="font-body-md text-[#cac6bf] text-base leading-relaxed group-hover:text-[#F1F0EB] transition-colors">
           {item.details}
         </p>
       </div>

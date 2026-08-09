@@ -46,13 +46,14 @@
   transform-origin: center;
   user-select: none;
   -webkit-user-drag: none;
+  filter: grayscale(100%) contrast(1.05) brightness(0.85);
 }
 
 .scroll-expand__scrim {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(0, 22, 25, 0.88), rgba(0, 37, 42, 0.25) 45%, rgba(0, 22, 25, 0.5));
+  background: linear-gradient(to top, rgba(10, 10, 9, 0.95), rgba(10, 10, 9, 0.4) 45%, rgba(10, 10, 9, 0.7));
   opacity: 0;
 }
 
@@ -82,8 +83,8 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
-  color: #C7F8FE;
-  text-shadow: 0 2px 24px rgba(80, 232, 244, 0.45);
+  color: #F1F0EB;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.85);
   pointer-events: none;
   will-change: opacity, transform;
 }
@@ -92,11 +93,13 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 1.25rem;
+  bottom: 2rem;
   text-align: center;
-  font-size: 0.8125rem;
-  letter-spacing: 0.02em;
-  color: rgba(80, 232, 244, 0.8);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  font-family: var(--font-mono-data), monospace;
+  text-transform: uppercase;
+  color: rgba(241, 240, 235, 0.65);
   pointer-events: none;
   will-change: opacity, transform;
 }

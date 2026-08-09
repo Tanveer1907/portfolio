@@ -32,7 +32,7 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
       >
         <RevealItem>
           <span className="font-mono-data text-[#949087] mb-12 block">
-            01 / ABOUT
+            02 / ABOUT
           </span>
         </RevealItem>
 
@@ -49,7 +49,7 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
         </RevealItem>
 
         <RevealItem>
-          <p className="font-body-md text-[#949087] mb-16 text-lg">
+          <p className="font-body-md text-[#949087] mb-16 text-lg leading-relaxed">
             My approach combines deep technical curiosity with an eye for refined, functional design.
           </p>
         </RevealItem>
@@ -57,9 +57,9 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
         <RevealItem>
           <button
             onClick={onOpenExpandedAbout}
-            className="group flex items-center gap-3 w-fit cursor-pointer"
+            className="group flex items-center gap-3 w-fit cursor-pointer p-1"
           >
-            <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors tracking-widest border-b border-transparent group-hover:border-[#F1F0EB] pb-1">
+            <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors tracking-widest border-b border-transparent group-hover:border-[#F1F0EB] pb-1 text-xs">
               FULL PROFILE
             </span>
             <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-transform duration-300 transform group-hover:translate-x-2">
@@ -73,7 +73,7 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
       <ImageReveal className="w-full lg:w-7/12 h-[60vh] lg:h-auto relative bg-[#121110] overflow-hidden">
         <motion.img
           style={{ y: reduced ? 0 : imageParallaxY }}
-          initial={{ scale: 1.04 }}
+          initial={{ scale: 1.03 }}
           whileInView={{ scale: 1 }}
           transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
           viewport={{ once: true }}

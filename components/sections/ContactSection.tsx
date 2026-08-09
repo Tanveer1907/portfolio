@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Reveal, RevealItem } from "@/components/ui/Reveal";
 
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -8,28 +9,36 @@ export default function ContactSection() {
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
   };
 
   return (
     <section id="connect" className="w-full flex flex-col md:flex-row border-b border-subtle bg-[#0C0C0B]">
       {/* Left Column */}
-      <div className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center border-b md:border-b-0 md:border-r border-subtle">
-        <span className="font-mono-data text-[#949087] mb-12 block">
-          05 / CONNECT
-        </span>
-        <h2 className="font-headline-lg text-[#F1F0EB] uppercase tracking-wide mb-8 text-5xl md:text-6xl">
-          Let&apos;s<br />Build.
-        </h2>
-        <p className="font-body-lg text-[#cac6bf] mb-16 max-w-sm text-xl">
-          Have an idea, a project, or just want to say hi? I&apos;d love to connect.
-        </p>
-        <div className="flex flex-wrap items-center gap-6">
+      <Reveal className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center border-b md:border-b-0 md:border-r border-subtle">
+        <RevealItem>
+          <span className="font-mono-data text-[#949087] mb-12 block">
+            06 / CONNECT
+          </span>
+        </RevealItem>
+        <RevealItem>
+          <h2 className="font-headline-lg text-[#F1F0EB] uppercase tracking-wide mb-8 text-5xl md:text-6xl">
+            Let&apos;s<br />Build.
+          </h2>
+        </RevealItem>
+        <RevealItem>
+          <p className="font-body-lg text-[#cac6bf] mb-16 max-w-sm text-xl leading-relaxed">
+            Have an idea, a project, or just want to say hi? I&apos;d love to connect.
+          </p>
+        </RevealItem>
+        <RevealItem className="flex flex-wrap items-center gap-6">
           <a
             href={`mailto:${email}`}
-            className="group flex items-center gap-4 w-fit border-b border-[#cac6bf] hover:border-[#F1F0EB] pb-2 transition-all"
+            className="group flex items-center gap-4 w-fit border-b border-[#cac6bf] hover:border-[#F1F0EB] pb-2 transition-all p-1"
           >
             <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors tracking-widest text-xs">
               GET IN TOUCH
@@ -40,18 +49,18 @@ export default function ContactSection() {
           </a>
           <button
             onClick={handleCopyEmail}
-            className="font-mono-data text-xs text-[#949087] hover:text-[#F1F0EB] transition-colors cursor-pointer"
+            className="font-mono-data text-xs text-[#949087] hover:text-[#F1F0EB] transition-colors cursor-pointer p-1"
           >
             {copied ? "COPIED ✓" : "COPY EMAIL"}
           </button>
-        </div>
-      </div>
+        </RevealItem>
+      </Reveal>
 
       {/* Right Column Links */}
       <div className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center gap-12 bg-[#0A0A09]">
         <a
           href={`mailto:${email}`}
-          className="flex items-center gap-8 group cursor-pointer"
+          className="flex items-center gap-8 group cursor-pointer p-1"
         >
           <span className="material-symbols-outlined text-[#949087] group-hover:text-[#F1F0EB] transition-colors text-3xl">
             mail
@@ -65,7 +74,7 @@ export default function ContactSection() {
           href="https://github.com/Tanveer1907"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-8 group cursor-pointer"
+          className="flex items-center gap-8 group cursor-pointer p-1"
         >
           <span className="material-symbols-outlined text-[#949087] group-hover:text-[#F1F0EB] transition-colors text-3xl">
             code
@@ -79,7 +88,7 @@ export default function ContactSection() {
           href="https://linkedin.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-8 group cursor-pointer"
+          className="flex items-center gap-8 group cursor-pointer p-1"
         >
           <span className="material-symbols-outlined text-[#949087] group-hover:text-[#F1F0EB] transition-colors text-3xl">
             work
