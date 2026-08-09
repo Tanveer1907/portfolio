@@ -1,87 +1,85 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { Reveal, RevealItem, ImageReveal } from "@/components/ui/Reveal";
+import React from "react";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 interface AboutSectionProps {
   onOpenExpandedAbout: () => void;
 }
 
 export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps) {
-  const containerRef = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const imageParallaxY = useTransform(scrollYProgress, [0, 1], [-15, 15]);
-
   return (
     <section
-      ref={containerRef}
       id="about"
-      className="w-full min-h-screen flex flex-col lg:flex-row border-b border-subtle relative overflow-hidden"
+      className="w-full min-h-screen bg-[#0A0A09] text-[#F1F0EB] border-b border-subtle relative overflow-hidden flex flex-col justify-center"
     >
-      {/* Left Text Column */}
-      <Reveal
-        staggerChildren={0.12}
-        className="w-full lg:w-5/12 p-6 md:p-24 xl:p-32 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-subtle relative bg-[#0C0C0B]"
+      <ContainerScroll
+        titleComponent={
+          <div className="flex flex-col items-center gap-3">
+            <span className="font-label-caps text-[#39C3EF] text-xs sm:text-sm tracking-[0.3em] uppercase">
+              02 // ABOUT ME
+            </span>
+            <h2 className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-[#F1F0EB] uppercase">
+              Know More About Me.
+            </h2>
+
+          </div>
+        }
       >
-        <RevealItem>
-          <span className="font-mono-data text-[#949087] mb-12 block">
-            02 / ABOUT
-          </span>
-        </RevealItem>
-
-        <RevealItem>
-          <h2 className="font-headline-lg text-[#F1F0EB] uppercase tracking-wide mb-12 text-5xl md:text-6xl leading-tight">
-            Engineering<br />with Intent.
-          </h2>
-        </RevealItem>
-
-        <RevealItem>
-          <p className="font-body-lg text-[#cac6bf] mb-10 text-xl leading-relaxed">
-            Computer Science student who loves solving problems, building products and learning by doing. I focus on creating robust, scalable architectures that deliver seamless user experiences.
-          </p>
-        </RevealItem>
-
-        <RevealItem>
-          <p className="font-body-md text-[#949087] mb-16 text-lg leading-relaxed">
-            My approach combines deep technical curiosity with an eye for refined, functional design.
-          </p>
-        </RevealItem>
-
-        <RevealItem>
-          <button
-            onClick={onOpenExpandedAbout}
-            className="group flex items-center gap-3 w-fit cursor-pointer p-1"
-          >
-            <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors tracking-widest border-b border-transparent group-hover:border-[#F1F0EB] pb-1 text-xs">
-              FULL PROFILE
+        <div className="h-full w-full overflow-hidden rounded-2xl bg-[#141413] border border-white/10 p-6 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-left relative shadow-2xl">
+          {/* Left: Bio & Details */}
+          <div className="flex flex-col justify-center gap-5 w-full md:w-1/2 z-10">
+            <span className="inline-block w-fit px-3 py-1 rounded-full bg-[#39C3EF]/10 border border-[#39C3EF]/30 text-[#39C3EF] text-xs font-mono tracking-widest uppercase">
+              SOFTWARE DEVELOPER & CS STUDENT
             </span>
-            <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-transform duration-300 transform group-hover:translate-x-2">
-              arrow_forward
-            </span>
-          </button>
-        </RevealItem>
-      </Reveal>
 
-      {/* Right Image Column */}
-      <ImageReveal className="w-full lg:w-7/12 h-[60vh] lg:h-auto relative bg-[#121110] overflow-hidden">
-        <motion.img
-          style={{ y: reduced ? 0 : imageParallaxY }}
-          initial={{ scale: 1.03 }}
-          whileInView={{ scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-          viewport={{ once: true }}
-          alt="Minimalist desk setup with warm light"
-          className="w-full h-full object-cover opacity-70 mix-blend-lighten grayscale hover:grayscale-0 transition-all duration-700"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAucd8v3BHfYQQaNOLnBE7Y3j86yfKJOrQmwGgbiLnC5Pqyj_YXaFp08RY7BGSzptSZ--8SB1rBfcLVt7H8XgGX9yUWDKMJ4f81HqroSEQT-7ZdkieUChPxelklEATU9OXY2dMPS39VyeVVuO541zadY9HBp0k4A4UYahJ6Lhbf_Zuac_ryevCttIfNN-5Qg_K4ye8Qf5OWhTAscsLKI4-B-TFHTwM7pVdRiYgDJuyNl0sPLbMsAg5J"
-        />
-      </ImageReveal>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#F1F0EB] leading-tight">
+              Crafting scalable systems & intuitive digital experiences.
+            </h3>
+
+            <p className="text-[#cac6bf] text-sm md:text-base leading-relaxed">
+              Computer Science student passionate about building robust, scalable architectures and learning by doing. My approach combines deep technical curiosity with an eye for refined, functional design.
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-1">
+              {["React / Next.js", "TypeScript", "Python", "System Architecture", "Web Audio / 3D"].map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-[#cac6bf] text-xs font-mono"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+            <button
+              onClick={onOpenExpandedAbout}
+              className="mt-2 group flex items-center gap-3 w-fit cursor-pointer border-b border-subtle hover:border-[#F1F0EB] pb-1 transition-all"
+            >
+              <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors text-xs tracking-[0.2em]">
+                FULL PROFILE & JOURNAL
+              </span>
+              <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-transform duration-300 transform group-hover:translate-x-2">
+                arrow_forward
+              </span>
+            </button>
+          </div>
+
+          {/* Right: Featured Developer Image Showcase */}
+          <div className="w-full md:w-1/2 h-full min-h-[240px] md:min-h-[360px] rounded-xl overflow-hidden relative group border border-white/10">
+            <img
+              src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop"
+              alt="Developer workspace"
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-[#cac6bf] font-mono">
+              <span>TANVEER SINGH</span>
+              <span>BASED IN INDIA</span>
+            </div>
+          </div>
+        </div>
+      </ContainerScroll>
     </section>
   );
 }

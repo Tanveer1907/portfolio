@@ -1,0 +1,98 @@
+/* From Uiverse.io by marcelodolza - Adapted for Music Player Widget */
+
+.music-loader-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  --size: 54px;
+  --duration: 2.5s;
+  --logo-color: #39C3EF;
+  --background: linear-gradient(
+    0deg,
+    rgb(30 27 109 / 40%) 0%,
+    rgb(137 76 161 / 40%) 100%
+  );
+  height: var(--size);
+  width: var(--size);
+  aspect-ratio: 1;
+  position: relative;
+  pointer-events: auto;
+}
+
+.loader .box {
+  position: absolute;
+  background: var(--background);
+  border-radius: 50%;
+  box-shadow:
+    rgba(0, 0, 0, 0.5) 0px 6px 8px 0,
+    inset rgba(205, 155, 255, 0.5) 0px 3px 6px -4px;
+  inset: var(--inset);
+  animation-delay: calc(var(--i) * 0.15s);
+  z-index: calc(var(--i) * -1);
+  pointer-events: all;
+  transition: all 0.3s ease;
+}
+
+.playing .loader .box {
+  animation: ripple var(--duration) infinite ease-in-out;
+}
+
+.loader .box:last-child {
+  filter: blur(15px);
+}
+.loader .box:not(:last-child):hover {
+  filter: brightness(2) blur(3px);
+}
+
+.loader .logo {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  z-index: 10;
+}
+
+.loader .logo svg {
+  fill: var(--logo-color);
+  width: 100%;
+  animation: color-change var(--duration) infinite ease-in-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    box-shadow:
+      rgba(0, 0, 0, 0.5) 0px 6px 8px 0,
+      inset rgba(205, 155, 255, 0.5) 0px 3px 6px -4px;
+  }
+  65% {
+    transform: scale(1.35);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0 0 0;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow:
+      rgba(0, 0, 0, 0.5) 0px 6px 8px 0,
+      inset rgba(205, 155, 255, 0.5) 0px 3px 6px -4px;
+  }
+}
+
+@keyframes color-change {
+  0% {
+    fill: var(--logo-color);
+  }
+  50% {
+    fill: white;
+  }
+  100% {
+    fill: var(--logo-color);
+  }
+}

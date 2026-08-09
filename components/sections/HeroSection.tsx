@@ -2,7 +2,8 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import EchoText from "@/components/ui/EchoText";
+import TextPressure from "@/components/ui/TextPressure";
+import GlobeDemo from "@/components/ui/globe-demo";
 import { EASING } from "@/lib/animations/tokens";
 
 interface HeroSectionProps {
@@ -10,7 +11,7 @@ interface HeroSectionProps {
   isActive?: boolean;
 }
 
-export default function HeroSection({ onExplore, isActive = true }: HeroSectionProps) {
+export default function HeroSection({ onExplore }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
@@ -27,7 +28,7 @@ export default function HeroSection({ onExplore, isActive = true }: HeroSectionP
     <section
       ref={containerRef}
       id="home"
-      className="relative w-full h-screen flex flex-col justify-center px-6 md:px-24 xl:px-48 border-b border-subtle overflow-hidden py-16 bg-[#0A0A09]"
+      className="relative w-full min-h-screen flex flex-col justify-center px-8 sm:px-14 md:px-20 lg:px-28 xl:px-36 border-b border-subtle overflow-hidden py-16 bg-[#0A0A09]"
     >
       {/* Background Image Layer with Gradient & Parallax */}
       <motion.div
@@ -45,72 +46,92 @@ export default function HeroSection({ onExplore, isActive = true }: HeroSectionP
         />
       </motion.div>
 
-      {/* Main Content Area */}
+      {/* Main Content Area: Aligned slightly rightwards with max-w container */}
       <motion.div
         style={{ y: reduced ? 0 : textY, opacity: reduced ? 1 : opacity }}
-        className="relative z-20 flex flex-col gap-8 w-full mt-6"
+        className="relative z-20 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-14 w-full max-w-[1440px] mx-auto mt-6"
       >
-        {/* EchoText Interactive Headline */}
+        {/* Left Side: Main Text and CTA (Shifted slightly rightwards) */}
+        <div className="flex flex-col gap-3 sm:gap-4 w-full lg:w-[52%] flex-shrink-0 lg:pl-4">
+          {/* Section Indicator */}
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-[#39C3EF]" />
+            <span className="font-label-caps text-[#cac6bf] text-xs tracking-[0.25em] uppercase">
+              01 // HOME
+            </span>
+          </div>
+
+          {/* Headline: Intro label HI, I'M + Large prominent TextPressure TANVEER SINGH */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.2, ease: EASING.editorial }}
+            className="flex flex-col gap-0.5 w-full max-w-2xl overflow-visible"
+          >
+            <span className="font-label-caps text-[#cac6bf] text-sm sm:text-base md:text-lg font-semibold tracking-[0.25em] uppercase">
+              HI, I&apos;M
+            </span>
+            <div className="relative w-full h-[90px] sm:h-[130px] md:h-[155px] lg:h-[175px] overflow-visible">
+              <TextPressure
+                text="TANVEER SINGH"
+                flex={true}
+                alpha={false}
+                stroke={false}
+                width={true}
+                weight={true}
+                italic={true}
+                textColor="#F1F0EB"
+                minFontSize={56}
+                className="font-hero-display tracking-tight font-extrabold"
+              />
+            </div>
+          </motion.div>
+
+          {/* Supporting Text */}
+          <motion.p
+            initial={reduced ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.7,
+              delay: 0.72,
+              ease: EASING.editorial,
+            }}
+            className="font-body-lg text-[#cac6bf] max-w-lg text-lg md:text-xl leading-relaxed mt-0"
+          >
+            Software developer passionate about building scalable systems and intuitive experiences.
+          </motion.p>
+
+          {/* CTA Button */}
+          <motion.button
+            initial={reduced ? false : { opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.88,
+              ease: EASING.editorial,
+            }}
+            onClick={onExplore}
+            className="group flex items-center gap-4 w-fit mt-1 border-b border-subtle hover:border-[#F1F0EB] pb-2 transition-all cursor-pointer"
+          >
+            <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors text-sm tracking-[0.2em]">
+              EXPLORE
+            </span>
+            <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-transform duration-300 transform group-hover:translate-x-2">
+              arrow_forward
+            </span>
+          </motion.button>
+        </div>
+
+        {/* Right Side: Globe Demo Container (Shifted Rightwards to avoid overlap) */}
         <motion.div
-          initial={reduced ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.2, ease: EASING.editorial }}
-          className="overflow-visible py-2"
+          initial={reduced ? false : { opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.4, ease: EASING.editorial }}
+          className="w-full lg:w-[46%] lg:translate-x-14 xl:translate-x-20 h-[320px] sm:h-[400px] md:h-[450px] lg:h-[520px] relative flex items-center justify-center pointer-events-auto z-20"
         >
-          <EchoText
-            key={isActive ? "active" : "inactive"}
-            text="HI, I'M TANVEER SINGH"
-            echoes={8}
-            lag={0.22}
-            offset={24}
-            direction="right"
-            fade={0.68}
-            blur={1.5}
-            tint="#F1F0EB"
-            mode="both"
-            cursorRadius={360}
-            duration={1100}
-            ease="ease-out"
-            fontSize="clamp(2.8rem, 7vw, 7rem)"
-            fontWeight={800}
-            color="#F1F0EB"
-            className="tracking-tight uppercase font-hero-display cursor-pointer"
-          />
+
+          <GlobeDemo />
         </motion.div>
-
-        {/* Supporting Text */}
-        <motion.p
-          initial={reduced ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.7,
-            delay: 0.72,
-            ease: EASING.editorial,
-          }}
-          className="font-body-lg text-[#cac6bf] max-w-2xl text-xl md:text-2xl mt-1 leading-relaxed"
-        >
-          Software developer passionate about building scalable systems and intuitive experiences.
-        </motion.p>
-
-        {/* CTA Button */}
-        <motion.button
-          initial={reduced ? false : { opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.6,
-            delay: 0.88,
-            ease: EASING.editorial,
-          }}
-          onClick={onExplore}
-          className="group flex items-center gap-4 w-fit mt-4 border-b border-subtle hover:border-[#F1F0EB] pb-2 transition-all cursor-pointer"
-        >
-          <span className="font-label-caps text-[#cac6bf] group-hover:text-[#F1F0EB] transition-colors text-sm tracking-[0.2em]">
-            EXPLORE
-          </span>
-          <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-transform duration-300 transform group-hover:translate-x-2">
-            arrow_forward
-          </span>
-        </motion.button>
       </motion.div>
 
       {/* Social Links Bottom Left */}
@@ -118,7 +139,8 @@ export default function HeroSection({ onExplore, isActive = true }: HeroSectionP
         initial={reduced ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.05, ease: EASING.editorial }}
-        className="absolute bottom-10 left-6 md:left-24 xl:left-48 flex gap-8 text-[#cac6bf] z-20"
+        className="absolute bottom-10 left-24 sm:left-28 md:left-36 lg:left-44 flex gap-8 text-[#cac6bf] z-20"
+
       >
         <a
           href="https://github.com/Tanveer1907"
@@ -152,7 +174,7 @@ export default function HeroSection({ onExplore, isActive = true }: HeroSectionP
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.18 }}
-        className="absolute bottom-10 right-6 md:right-12 xl:right-24 flex items-center gap-3 text-[#949087] z-20 mix-blend-difference"
+        className="absolute bottom-10 right-8 sm:right-14 md:right-20 lg:right-28 xl:right-36 flex items-center gap-3 text-[#949087] z-20 mix-blend-difference"
       >
         <span className="font-label-caps tracking-widest text-xs">SCROLL TO BEGIN</span>
         <motion.span
