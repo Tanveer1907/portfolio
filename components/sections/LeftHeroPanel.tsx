@@ -9,7 +9,7 @@ interface LeftHeroPanelProps {
 
 export default function LeftHeroPanel({ onExplore }: LeftHeroPanelProps) {
   return (
-    <div className="hidden md:flex flex-col w-[48%] h-screen fixed top-0 left-0 border-r border-subtle pt-32 pb-8 px-12 xl:px-20 justify-between bg-[#0A0A09] z-10 overflow-hidden">
+    <div className="hidden md:flex flex-col w-[48%] h-screen fixed top-0 left-0 pt-32 pb-8 px-12 xl:px-20 justify-between bg-transparent z-10 overflow-hidden">
       {/* Hero Text Content */}
       <div className="flex flex-col gap-6 max-w-[480px] mt-6 relative z-10">
         <motion.h1

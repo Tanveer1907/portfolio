@@ -17,9 +17,9 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="connect" className="w-full flex flex-col md:flex-row border-b border-subtle bg-[#0C0C0B]">
+    <section id="connect" className="w-full flex flex-col md:flex-row bg-transparent">
       {/* Left Column */}
-      <Reveal className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center border-b md:border-b-0 md:border-r border-subtle">
+      <Reveal className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center">
         <RevealItem>
           <span className="font-mono-data text-[#949087] mb-12 block">
             06 / CONNECT
@@ -57,7 +57,7 @@ export default function ContactSection() {
       </Reveal>
 
       {/* Right Column Links */}
-      <div className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center gap-12 bg-[#0A0A09]">
+      <div className="w-full md:w-1/2 p-6 md:p-24 xl:p-32 flex flex-col justify-center gap-12 bg-transparent">
         <a
           href={`mailto:${email}`}
           className="flex items-center gap-8 group cursor-pointer p-1"

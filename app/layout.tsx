@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { fontPlayfair, fontInter, fontGeist, fontMono } from "@/styles/fonts";
+import GlobalBackground from "@/components/layout/GlobalBackground";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,7 +25,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         />
       </head>
-      <body className="bg-[#0A0A09] text-[#e6e2df] antialiased selection:bg-[#f5eee0] selection:text-[#0A0A09]">
+      <body className="bg-[#090a0f] text-[#e6e2df] antialiased selection:bg-[#f5eee0] selection:text-[#0A0A09]">
+        <GlobalBackground />
         {children}
       </body>
     </html>

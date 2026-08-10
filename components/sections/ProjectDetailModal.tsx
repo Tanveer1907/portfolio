@@ -156,7 +156,7 @@ export default function ProjectDetailModal({
           data-lenis-prevent="true"
           data-lenis-prevent-touch="true"
           data-lenis-prevent-wheel="true"
-          className="fixed inset-0 z-50 bg-[#0A0A09]/98 text-[#F1F0EB] overflow-y-auto overscroll-contain touch-pan-y p-6 md:p-16 flex flex-col justify-between"
+          className="fixed inset-0 z-50 bg-[#090a0f]/90 backdrop-blur-xl text-[#F1F0EB] overflow-y-auto overscroll-contain touch-pan-y p-6 md:p-16 flex flex-col justify-between"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
           <div className="max-w-4xl mx-auto w-full space-y-12 py-6">

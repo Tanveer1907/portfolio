@@ -111,7 +111,7 @@ export const HorizontalTimeline = ({ data }: { data: TimelineEntry[] }) => {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[400vh] w-full bg-[#0A0A09]">
+    <div ref={containerRef} className="relative h-[400vh] w-full bg-transparent">
       {/* Sticky Fullscreen Container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center py-10 px-6 sm:px-12 md:px-16">
         {/* Top Header & Progress Line */}
@@ -149,7 +149,7 @@ export const HorizontalTimeline = ({ data }: { data: TimelineEntry[] }) => {
             {data.map((item, index) => (
               <div
                 key={index}
-                className="w-[85vw] sm:w-[500px] md:w-[580px] bg-[#141413] border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col justify-between flex-shrink-0 shadow-2xl relative group hover:border-[#39C3EF]/40 transition-colors"
+                className="w-[85vw] sm:w-[500px] md:w-[580px] bg-[#141413]/70 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col justify-between flex-shrink-0 shadow-2xl relative group hover:border-[#39C3EF]/40 transition-colors"
               >
                 {/* Top Badge: Year & Index */}
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">

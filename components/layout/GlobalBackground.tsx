@@ -7,9 +7,14 @@ export default function GlobalBackground() {
   const reduced = useReducedMotion();
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-[#0A0A09]">
+    <div className="stars-container fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+      {/* Animated Star Layers */}
+      <div id="stars" />
+      <div id="stars2" />
+      <div id="stars3" />
+
       {/* SVG Grain Noise Filter (~0.018 opacity) */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.018] pointer-events-none mix-blend-soft-light">
+      <svg className="absolute inset-0 w-full h-full opacity-[0.018] pointer-events-none mix-blend-soft-light z-10">
         <filter id="film-grain-global">
           <feTurbulence
             type="fractalNoise"
@@ -33,7 +38,7 @@ export default function GlobalBackground() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(241,240,235,0.03)_0%,rgba(10,10,9,0)_75%)] pointer-events-none"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(241,240,235,0.03)_0%,rgba(9,10,15,0)_75%)] pointer-events-none z-20"
         />
       )}
     </div>

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import SmoothScrollProvider, { useLenisScroll } from "@/components/layout/SmoothScrollProvider";
-import GlobalBackground from "@/components/layout/GlobalBackground";
 import BubbleMenu from "@/components/navigation/BubbleMenu";
 import HeroSection from "@/components/sections/HeroSection";
 
@@ -107,7 +106,7 @@ function PortfolioContent() {
 
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A09] text-[#F1F0EB] antialiased overflow-x-clip w-full">
+    <div className="relative min-h-screen bg-transparent text-[#F1F0EB] antialiased overflow-x-clip w-full">
       {/* Bubble Menu Navigation */}
       <BubbleMenu
         logo={
@@ -184,7 +183,6 @@ function PortfolioContent() {
 export default function Home() {
   return (
     <SmoothScrollProvider>
-      <GlobalBackground />
       <ClickSpark
         sparkColor="#4202ed"
         sparkSize={29}

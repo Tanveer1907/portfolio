@@ -21,30 +21,15 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
   });
 
   const textY = useTransform(scrollYProgress, [0, 1], [0, -35]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, 20]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.2]);
 
   return (
     <section
       ref={containerRef}
       id="home"
-      className="relative w-full min-h-screen flex flex-col justify-center px-8 sm:px-14 md:px-20 lg:px-28 xl:px-36 border-b border-subtle overflow-hidden py-16 bg-[#0A0A09]"
+      className="relative w-full min-h-screen flex flex-col justify-center px-8 sm:px-14 md:px-20 lg:px-28 xl:px-36 overflow-hidden py-16 bg-transparent"
     >
-      {/* Background Image Layer with Gradient & Parallax */}
-      <motion.div
-        style={{ y: reduced ? 0 : imageY }}
-        className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-        initial={reduced ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: EASING.editorial }}
-      >
-        <div className="absolute inset-0 w-full h-full bg-[#0A0A09]/92 z-10" />
-        <img
-          alt="Dark ambient texture"
-          className="w-full h-full object-cover opacity-15 mix-blend-luminosity grayscale"
-          src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop"
-        />
-      </motion.div>
+
 
       {/* Main Content Area: Aligned slightly rightwards with max-w container */}
       <motion.div

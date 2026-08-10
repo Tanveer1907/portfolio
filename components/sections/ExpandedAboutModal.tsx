@@ -43,7 +43,7 @@ export default function ExpandedAboutModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: DURATION.FAST, ease: EASING.editorial }}
-          className="fixed inset-0 z-50 bg-[#0A0A09]/98 text-[#F1F0EB] overflow-y-auto p-6 md:p-16 flex flex-col justify-between"
+          className="fixed inset-0 z-50 bg-[#090a0f]/90 backdrop-blur-xl text-[#F1F0EB] overflow-y-auto p-6 md:p-16 flex flex-col justify-between"
         >
           <div className="max-w-4xl mx-auto w-full py-6">
             {/* Header */}

@@ -11,7 +11,7 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
   return (
     <section
       id="about"
-      className="w-full min-h-screen bg-[#0A0A09] text-[#F1F0EB] border-b border-subtle relative overflow-hidden flex flex-col justify-center"
+      className="w-full min-h-screen bg-transparent text-[#F1F0EB] relative overflow-hidden flex flex-col justify-center"
     >
       <ContainerScroll
         titleComponent={
@@ -26,7 +26,7 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
           </div>
         }
       >
-        <div className="h-full w-full overflow-hidden rounded-2xl bg-[#141413] border border-white/10 p-6 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-left relative shadow-2xl">
+        <div className="h-full w-full overflow-hidden rounded-2xl bg-[#141413]/70 backdrop-blur-md border border-white/10 p-6 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-left relative shadow-2xl">
           {/* Left: Bio & Details */}
           <div className="flex flex-col justify-center gap-5 w-full md:w-1/2 z-10">
             <span className="inline-block w-fit px-3 py-1 rounded-full bg-[#39C3EF]/10 border border-[#39C3EF]/30 text-[#39C3EF] text-xs font-mono tracking-widest uppercase">

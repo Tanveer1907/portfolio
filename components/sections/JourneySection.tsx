@@ -28,7 +28,7 @@ const JOURNEY_ITEMS = [
 
 export default function JourneySection() {
   return (
-    <section id="journey" className="flex flex-col w-full border-b border-subtle">
+    <section id="journey" className="flex flex-col w-full bg-transparent">
       {/* Section Header */}
       <div className="p-6 md:p-12 pb-6">
         <span className="font-mono-data text-[#949087] block mb-2">04</span>
@@ -41,7 +41,7 @@ export default function JourneySection() {
       </div>
 
       {/* Minimal Vertical Timeline */}
-      <div className="p-6 md:p-12 border-t border-subtle relative">
+      <div className="p-6 md:p-12 relative">
         <div className="absolute left-6 md:left-12 top-12 bottom-12 w-[1px] bg-subtle" />
 
         <div className="space-y-12 pl-8 md:pl-12 relative z-10">
