@@ -53,7 +53,7 @@ export default function SkillsSection() {
       <Reveal staggerChildren={STAGGER.MEDIUM}>
         <RevealItem>
           <span className="font-mono-data text-[#949087] mb-12 block">
-            04 / ENGINEERING TOOLKIT
+            05 / ENGINEERING TOOLKIT
           </span>
         </RevealItem>
       </Reveal>

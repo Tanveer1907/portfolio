@@ -120,7 +120,7 @@ export const HorizontalTimeline = ({ data }: { data: TimelineEntry[] }) => {
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#39C3EF] animate-pulse" />
               <span className="font-mono text-xs tracking-[0.25em] text-[#cac6bf] uppercase">
-                05 // THE JOURNEY
+                03 // THE JOURNEY
               </span>
             </div>
             <span className="font-mono text-xs text-[#cac6bf] hidden sm:block">

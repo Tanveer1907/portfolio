@@ -27,8 +27,9 @@ function PortfolioContent() {
 
 
   const handleSelectSection = (id: string) => {
-    const targetId = id === "hero" ? "home" : id;
-    scrollTo(targetId);
+    const cleanId = id.replace("#", "");
+    const targetId = cleanId === "hero" ? "home" : cleanId;
+    scrollTo(`#${targetId}`);
   };
 
   const menuItems = [
@@ -55,6 +56,17 @@ function PortfolioContent() {
       },
     },
     {
+      label: "journey",
+      href: "#journey",
+      ariaLabel: "Journey",
+      rotation: 8,
+      hoverStyles: { bgColor: "#8b5cf6", textColor: "#ffffff" },
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault();
+        handleSelectSection("journey");
+      },
+    },
+    {
       label: "projects",
       href: "#projects",
       ariaLabel: "Projects",
@@ -74,17 +86,6 @@ function PortfolioContent() {
       onClick: (e: React.MouseEvent) => {
         e.preventDefault();
         handleSelectSection("skills");
-      },
-    },
-    {
-      label: "journey",
-      href: "#journey",
-      ariaLabel: "Journey",
-      rotation: 8,
-      hoverStyles: { bgColor: "#8b5cf6", textColor: "#ffffff" },
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        handleSelectSection("journey");
       },
     },
     {
@@ -136,13 +137,9 @@ function PortfolioContent() {
         staggerDelay={0.12}
       />
 
-
-
-
-
       {/* Main Single-Column Full Viewport Continuous Flow */}
       <main className="w-full flex flex-col">
-        {/* 00 HERO SECTION */}
+        {/* 01 HERO SECTION */}
         <HeroSection onExplore={() => handleSelectSection("about")} />
 
         {/* 02 ABOUT SECTION */}
@@ -150,14 +147,14 @@ function PortfolioContent() {
           onOpenExpandedAbout={() => setIsExpandedAboutOpen(true)}
         />
 
-        {/* 03 SELECTED WORKS / PROJECTS */}
+        {/* 03 THE JOURNEY / VISUAL MAP */}
+        <JourneyMapSection />
+
+        {/* 04 SELECTED WORKS / PROJECTS */}
         <ProjectsSection />
 
-        {/* 04 ENGINEERING TOOLKIT / SKILLS */}
+        {/* 05 ENGINEERING TOOLKIT / SKILLS */}
         <SkillsSection />
-
-        {/* 05 THE JOURNEY / VISUAL MAP */}
-        <JourneyMapSection />
 
         {/* 06 LET'S BUILD / CONNECT */}
         <ContactSection />

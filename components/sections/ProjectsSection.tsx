@@ -81,7 +81,7 @@ export default function ProjectsSection() {
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-[#39C3EF]" />
           <span className="font-label-caps text-[#cac6bf] text-xs tracking-[0.25em] uppercase">
-            03 // SELECTED WORKS
+            04 // SELECTED WORKS
           </span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#F1F0EB] uppercase">

@@ -103,21 +103,29 @@ function useAudio(enabled: boolean) {
 
   useEffect(() => {
     if (!enabled) return;
-    const init = async () => {
+    const init = () => {
       try {
         const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
         if (!AudioCtx) return;
-        ctxRef.current = new AudioCtx();
-        const res = await fetch("/sounds/sound.ogg");
-        if (!res.ok) return;
-        bufferRef.current = await ctxRef.current.decodeAudioData(
-          await res.arrayBuffer(),
-        );
+        if (!ctxRef.current) {
+          ctxRef.current = new AudioCtx();
+        }
         readyRef.current = true;
       } catch {}
     };
     init();
+
+    const handleUserInteraction = () => {
+      if (ctxRef.current && ctxRef.current.state === "suspended") {
+        ctxRef.current.resume();
+      }
+    };
+
+    const events = ["pointerdown", "keydown", "touchstart", "mousemove", "scroll"];
+    events.forEach((evt) => window.addEventListener(evt, handleUserInteraction, { once: false }));
+
     return () => {
+      events.forEach((evt) => window.removeEventListener(evt, handleUserInteraction));
       ctxRef.current?.close();
     };
   }, [enabled]);
@@ -125,7 +133,7 @@ function useAudio(enabled: boolean) {
   const playClickSynth = (isEnter = false) => {
     if (!enabled) return;
     try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (!AudioCtx) return;
       if (!ctxRef.current) {
         ctxRef.current = new AudioCtx();
@@ -134,41 +142,34 @@ function useAudio(enabled: boolean) {
       if (ctx.state === "suspended") {
         ctx.resume();
       }
+
+      const now = ctx.currentTime;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(isEnter ? 250 : 750 + Math.random() * 350, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + (isEnter ? 0.05 : 0.025));
+      osc.type = isEnter ? "triangle" : "square";
+      const baseFreq = isEnter ? 280 : 1100 + Math.random() * 500;
+      osc.frequency.setValueAtTime(baseFreq, now);
+      osc.frequency.exponentialRampToValueAtTime(100, now + (isEnter ? 0.05 : 0.03));
 
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (isEnter ? 0.05 : 0.025));
+      gain.gain.setValueAtTime(isEnter ? 0.25 : 0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + (isEnter ? 0.05 : 0.03));
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
-      osc.start();
-      osc.stop(ctx.currentTime + (isEnter ? 0.05 : 0.025));
+      osc.start(now);
+      osc.stop(now + (isEnter ? 0.05 : 0.03));
     } catch {}
   };
 
-  const playSound = (key: string, sound: [number, number] | undefined) => {
+  const playSound = (key: string) => {
     if (!enabled) return;
-    if (readyRef.current && ctxRef.current && bufferRef.current && sound) {
-      if (ctxRef.current.state === "suspended") ctxRef.current.resume();
-      const src = ctxRef.current.createBufferSource();
-      src.buffer = bufferRef.current;
-      src.connect(ctxRef.current.destination);
-      src.start(0, sound[0] / 1000, sound[1] / 1000);
-    } else {
-      playClickSynth(key === "Enter");
-    }
+    playClickSynth(key === "Enter");
   };
 
-  const down = (key: string) =>
-    playSound(key, KEY_SOUNDS_DOWN[key.toUpperCase()] || KEY_SOUNDS_DOWN[key]);
-  const up = (key: string) =>
-    playSound(key, KEY_SOUNDS_UP[key.toUpperCase()] || KEY_SOUNDS_UP[key]);
+  const down = (key: string) => playSound(key);
+  const up = (key: string) => playSound(key);
 
   return { down, up };
 }

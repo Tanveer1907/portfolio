@@ -1,6 +1,6 @@
 /* eslint-disable */
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Canvas, extend } from "@react-three/fiber";
@@ -59,11 +59,12 @@ export type GlobeConfig = {
 interface WorldProps {
   globeConfig: GlobeConfig;
   data: Position[];
+  onPinClick?: (point: any) => void;
 }
 
 let numbersOfRings = [0];
 
-export function Globe({ globeConfig, data }: WorldProps) {
+export function Globe({ globeConfig, data, onPinClick }: WorldProps) {
   const globeRef = useRef<ThreeGlobe | null>(null);
   const groupRef = useRef<any>(null);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -174,12 +175,19 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .arcDashGap(15)
       .arcDashAnimateTime(() => defaultProps.arcTime);
 
-    globeRef.current
+    const globe = globeRef.current as any;
+    globe
       .pointsData(filteredPoints)
-      .pointColor((e) => (e as { color: string }).color)
-      .pointsMerge(true)
-      .pointAltitude(0.0)
-      .pointRadius(2);
+      .pointColor((e: any) => (e as { color: string }).color)
+      .pointsMerge(false)
+      .pointAltitude(0.02)
+      .pointRadius(3);
+
+    if (typeof globe.onPointClick === "function") {
+      globe.onPointClick((point: any) => {
+        if (onPinClick) onPinClick(point);
+      });
+    }
 
     globeRef.current
       .ringsData([])
@@ -239,20 +247,23 @@ export function WebGLRendererConfig() {
   const { gl, size } = useThree();
 
   useEffect(() => {
-    gl.setPixelRatio(window.devicePixelRatio);
+    gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     gl.setSize(size.width, size.height);
-    gl.setClearColor(0xffaaff, 0);
-  }, []);
+    gl.setClearColor(0x000000, 0);
+  }, [gl, size]);
 
   return null;
 }
 
 export function World(props: WorldProps) {
   const { globeConfig } = props;
-  const scene = new Scene();
-  scene.fog = new Fog(0x090a0f, 400, 2000);
+  const scene = useMemo(() => {
+    const s = new Scene();
+    s.fog = new Fog(0x090a0f, 400, 2000);
+    return s;
+  }, []);
   return (
-    <Canvas scene={scene} camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
+    <Canvas scene={scene} camera={{ fov: 50, near: 180, far: 1800, position: [0, 0, cameraZ] }}>
       <WebGLRendererConfig />
       <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
       <directionalLight

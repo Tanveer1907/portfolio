@@ -43,7 +43,7 @@ export default function MusicPlayer() {
   };
 
   return (
-    <div className="fixed bottom-5 left-4 sm:bottom-6 sm:left-5 z-[120] flex flex-col items-center pointer-events-auto">
+    <div className="fixed bottom-6 left-6 z-[150] flex flex-col items-center pointer-events-auto">
 
       {/* Orb Button container with smooth upward push when playing */}
       <div

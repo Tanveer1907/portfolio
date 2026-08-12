@@ -70,7 +70,7 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
             <img
               src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop"
               alt="Developer workspace"
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+              className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-100"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-[#cac6bf] font-mono">
