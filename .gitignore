@@ -3,9 +3,10 @@
 /.pnpm-store
 
 # next.js build output
-/.next/
-/out/
-/build/
+.next
+.next/
+out/
+build/
 
 # production
 /build

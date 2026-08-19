@@ -14,9 +14,8 @@ import JourneyMapSection from "@/components/sections/JourneyMapSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/sections/Footer";
 import ClickSpark from "@/components/ui/ClickSpark";
-import TerminalDemo from "@/components/ui/terminal-demo";
+import IntroSequence from "@/components/layout/IntroSequence";
 import { NoiseBackground } from "@/components/ui/noise-background";
-import MusicPlayer from "@/components/ui/MusicPlayer";
 
 
 function PortfolioContent() {
@@ -101,41 +100,43 @@ function PortfolioContent() {
     },
   ];
 
-  if (!hasEntered) {
-    return <TerminalDemo onFinish={() => setHasEntered(true)} />;
-  }
-
-
   return (
     <div className="relative min-h-screen bg-transparent text-[#F1F0EB] antialiased overflow-x-clip w-full">
-      {/* Bubble Menu Navigation */}
-      <BubbleMenu
-        logo={
-          <NoiseBackground
-            containerClassName="w-fit p-1 rounded-full mx-auto"
-            gradientColors={[
-              "rgb(255, 100, 150)",
-              "rgb(100, 150, 255)",
-              "rgb(255, 200, 100)",
-            ]}
-          >
-            <button
-              onClick={() => handleSelectSection("home")}
-              className="h-full w-full cursor-pointer rounded-full bg-linear-to-r from-neutral-100 via-neutral-100 to-white px-5 py-2 text-black font-extrabold text-xs tracking-wider shadow-[0px_2px_0px_0px_var(--color-neutral-50)_inset,0px_0.5px_1px_0px_var(--color-neutral-400)] transition-all duration-100 active:scale-98 dark:from-black dark:via-black dark:to-neutral-900 dark:text-white dark:shadow-[0px_1px_0px_0px_var(--color-neutral-950)_inset,0px_1px_0px_0px_var(--color-neutral-800)] flex items-center justify-center"
+      {/* Intro Sequence: Terminal -> Scroll Mask -> Home Hero Reveal */}
+      {!hasEntered && (
+        <IntroSequence onFinish={() => setHasEntered(true)} />
+      )}
+
+      {/* Bubble Menu Navigation (active once entered) */}
+      {hasEntered && (
+        <BubbleMenu
+          logo={
+            <NoiseBackground
+              containerClassName="w-fit p-1 rounded-full mx-auto"
+              gradientColors={[
+                "rgb(255, 100, 150)",
+                "rgb(100, 150, 255)",
+                "rgb(255, 200, 100)",
+              ]}
             >
-              TS
-            </button>
-          </NoiseBackground>
-        }
-        items={menuItems}
-        menuAriaLabel="Toggle navigation"
-        menuBg="#181817"
-        menuContentColor="#F1F0EB"
-        useFixedPosition={true}
-        animationEase="back.out(1.5)"
-        animationDuration={0.5}
-        staggerDelay={0.12}
-      />
+              <button
+                onClick={() => handleSelectSection("home")}
+                className="h-full w-full cursor-pointer rounded-full bg-linear-to-r from-neutral-100 via-neutral-100 to-white px-5 py-2 text-black font-extrabold text-xs tracking-wider shadow-[0px_2px_0px_0px_var(--color-neutral-50)_inset,0px_0.5px_1px_0px_var(--color-neutral-400)] transition-all duration-100 active:scale-98 dark:from-black dark:via-black dark:to-neutral-900 dark:text-white dark:shadow-[0px_1px_0px_0px_var(--color-neutral-950)_inset,0px_1px_0px_0px_var(--color-neutral-800)] flex items-center justify-center"
+              >
+                TS
+              </button>
+            </NoiseBackground>
+          }
+          items={menuItems}
+          menuAriaLabel="Toggle navigation"
+          menuBg="#181817"
+          menuContentColor="#F1F0EB"
+          useFixedPosition={true}
+          animationEase="back.out(1.5)"
+          animationDuration={0.5}
+          staggerDelay={0.12}
+        />
+      )}
 
       {/* Main Single-Column Full Viewport Continuous Flow */}
       <main className="w-full flex flex-col">
@@ -162,9 +163,6 @@ function PortfolioContent() {
         {/* FOOTER */}
         <Footer />
       </main>
-
-      {/* Music Player Widget - Bottom Left */}
-      <MusicPlayer />
 
       {/* Modals */}
       <ExpandedAboutModal

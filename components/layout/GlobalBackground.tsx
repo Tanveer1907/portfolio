@@ -1,17 +1,21 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import RisingParticles from "@/components/ui/RisingParticles";
 
 export default function GlobalBackground() {
-  const reduced = useReducedMotion();
-
   return (
-    <div className="stars-container fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-      {/* Animated Star Layers */}
-      <div id="stars" />
-      <div id="stars2" />
-      <div id="stars3" />
+    <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-[#090a0f]">
+      {/* Interactive Rising Particles Background */}
+      <RisingParticles
+        className="w-full h-full"
+        repelRadius={140}
+        repelStrength={7}
+        speed={0.8}
+        minRadius={1.1}
+        maxRadius={3.2}
+        baseColor="radial-gradient(ellipse at bottom, #131b26 0%, #090a0f 70%, #050608 100%)"
+      />
 
       {/* SVG Grain Noise Filter (~0.018 opacity) */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.018] pointer-events-none mix-blend-soft-light z-10">
@@ -26,21 +30,6 @@ export default function GlobalBackground() {
         </filter>
         <rect width="100%" height="100%" filter="url(#film-grain-global)" />
       </svg>
-
-      {/* Extremely Subtle Ambient Light Variation — Slow, Organic, Quiet */}
-      {!reduced && (
-        <motion.div
-          animate={{
-            opacity: [0.015, 0.025, 0.015],
-          }}
-          transition={{
-            duration: 16,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(241,240,235,0.03)_0%,rgba(9,10,15,0)_75%)] pointer-events-none z-20"
-        />
-      )}
     </div>
   );
 }

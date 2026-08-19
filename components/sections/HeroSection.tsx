@@ -2,7 +2,8 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import TextPressure from "@/components/ui/TextPressure";
+import MaskedHeading from "@/components/ui/MaskedHeading";
+import RisingParticles from "@/components/ui/RisingParticles";
 import GlobeDemo from "@/components/ui/globe-demo";
 import { EASING } from "@/lib/animations/tokens";
 
@@ -46,7 +47,7 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
             </span>
           </div>
 
-          {/* Headline: Intro label HI, I'M + Large prominent TextPressure TANVEER SINGH */}
+          {/* Headline: Intro label HI, I'M + Large prominent MaskedHeading TANVEER SINGH */}
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -56,18 +57,42 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
             <span className="font-label-caps text-[#cac6bf] text-sm sm:text-base md:text-lg font-semibold tracking-[0.25em] uppercase">
               HI, I&apos;M
             </span>
-            <div className="relative w-full h-[90px] sm:h-[130px] md:h-[155px] lg:h-[175px] overflow-visible">
-              <TextPressure
+            <div className="relative w-full overflow-visible py-1">
+              <MaskedHeading
                 text="TANVEER SINGH"
-                flex={true}
-                alpha={false}
-                stroke={false}
-                width={true}
-                weight={true}
-                italic={true}
-                textColor="#F1F0EB"
-                minFontSize={56}
-                className="font-hero-display tracking-tight font-extrabold"
+                tag="h1"
+                align="left"
+                weight={900}
+                tracking={-0.035}
+                lineHeight={0.92}
+                textScale={0.18}
+                fillScale={1.35}
+                parallax={32}
+                drift={18}
+                reveal="rise"
+                trigger="view"
+                className="font-hero-display uppercase"
+                customMedia={
+                  <div className="w-full h-full relative">
+                    <RisingParticles
+                      className="w-full h-full"
+                      particleCount={80}
+                      repelRadius={130}
+                      repelStrength={7}
+                      speed={1.0}
+                      minRadius={1.8}
+                      maxRadius={4.0}
+                      denseGlow={true}
+                      baseColor="linear-gradient(135deg, rgba(22, 34, 48, 0.96) 0%, rgba(180, 210, 240, 0.92) 30%, rgba(245, 243, 238, 0.98) 55%, rgba(57, 195, 239, 0.95) 80%, rgba(15, 25, 38, 0.96) 100%)"
+                      colors={[
+                        "rgba(255, 255, 255, ",
+                        "rgba(57, 195, 239, ",
+                        "rgba(245, 208, 97, ",
+                        "rgba(241, 240, 235, ",
+                      ]}
+                    />
+                  </div>
+                }
               />
             </div>
           </motion.div>
