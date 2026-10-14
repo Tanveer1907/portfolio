@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import MaskedHeading from "@/components/ui/MaskedHeading";
 import RisingParticles from "@/components/ui/RisingParticles";
-import GlobeDemo from "@/components/ui/globe-demo";
+import HeroCard from "@/components/ui/HeroCard";
 import { EASING } from "@/lib/animations/tokens";
 
 interface HeroSectionProps {
@@ -28,17 +28,17 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
     <section
       ref={containerRef}
       id="home"
-      className="relative w-full min-h-screen flex flex-col justify-center px-8 sm:px-14 md:px-20 lg:px-28 xl:px-36 overflow-hidden py-16 bg-transparent"
+      className="relative w-full min-h-screen flex flex-col justify-center px-8 sm:px-14 md:px-20 lg:px-28 xl:px-36 overflow-hidden py-10 md:py-14 bg-transparent"
     >
 
 
       {/* Main Content Area: Aligned slightly rightwards with max-w container */}
       <motion.div
         style={{ y: reduced ? 0 : textY, opacity: reduced ? 1 : opacity }}
-        className="relative z-20 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-14 w-full max-w-[1440px] mx-auto mt-6"
+        className="relative z-20 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-14 w-full max-w-[1440px] mx-auto mt-2 md:mt-4"
       >
-        {/* Left Side: Main Text and CTA (Shifted slightly rightwards) */}
-        <div className="flex flex-col gap-3 sm:gap-4 w-full lg:w-[52%] flex-shrink-0 lg:pl-4">
+        {/* Left Side: Main Text and CTA */}
+        <div className="flex flex-col gap-3 sm:gap-4 w-full lg:w-[48%] xl:w-[46%] flex-shrink-0 lg:pl-4">
           {/* Section Indicator */}
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#39C3EF]" />
@@ -132,15 +132,14 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
           </motion.button>
         </div>
 
-        {/* Right Side: Globe Demo Container (Shifted Rightwards to avoid overlap) */}
+        {/* Right Side: Holographic Collector Card (HoloCard) */}
         <motion.div
           initial={reduced ? false : { opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.4, ease: EASING.editorial }}
-          className="w-full lg:w-[46%] lg:translate-x-14 xl:translate-x-20 h-[320px] sm:h-[400px] md:h-[450px] lg:h-[520px] relative flex items-center justify-center pointer-events-auto z-20"
+          className="w-full lg:w-[52%] xl:w-[54%] relative flex items-center justify-center pointer-events-auto z-20 py-2"
         >
-
-          <GlobeDemo />
+          <HeroCard />
         </motion.div>
       </motion.div>
 

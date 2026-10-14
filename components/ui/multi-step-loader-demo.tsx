@@ -6,7 +6,7 @@ import { IconSquareRoundedX } from "@tabler/icons-react";
 
 export const PORTFOLIO_LOADING_STATES = [
   { text: "Initializing core environment..." },
-  { text: "Loading 3D Globe & interactive graphics..." },
+  { text: "Loading holographic card & interactive graphics..." },
   { text: "Fetching selected works & projects..." },
   { text: "Compiling engineering toolkit..." },
   { text: "Rendering continuous layout..." },
