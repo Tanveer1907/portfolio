@@ -48,12 +48,7 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
           </div>
 
           {/* Headline: Intro label HI, I'M + Large prominent MaskedHeading TANVEER SINGH */}
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.2, ease: EASING.editorial }}
-            className="flex flex-col gap-0.5 w-full max-w-2xl overflow-visible"
-          >
+          <div className="flex flex-col gap-0.5 w-full max-w-2xl overflow-visible">
             <span className="font-label-caps text-[#cac6bf] text-sm sm:text-base md:text-lg font-semibold tracking-[0.25em] uppercase">
               HI, I&apos;M
             </span>
@@ -95,31 +90,15 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
                 }
               />
             </div>
-          </motion.div>
+          </div>
 
           {/* Supporting Text */}
-          <motion.p
-            initial={reduced ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: 0.72,
-              ease: EASING.editorial,
-            }}
-            className="font-body-lg text-[#cac6bf] max-w-lg text-lg md:text-xl leading-relaxed mt-0"
-          >
+          <p className="font-body-lg text-[#cac6bf] max-w-lg text-lg md:text-xl leading-relaxed mt-0">
             Software developer passionate about building scalable systems and intuitive experiences.
-          </motion.p>
+          </p>
 
           {/* CTA Button */}
-          <motion.button
-            initial={reduced ? false : { opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.88,
-              ease: EASING.editorial,
-            }}
+          <button
             onClick={onExplore}
             className="group flex items-center gap-4 w-fit mt-1 border-b border-subtle hover:border-[#F1F0EB] pb-2 transition-all cursor-pointer"
           >
@@ -129,28 +108,17 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
             <span className="material-symbols-outlined text-sm text-[#cac6bf] group-hover:text-[#F1F0EB] transition-transform duration-300 transform group-hover:translate-x-2">
               arrow_forward
             </span>
-          </motion.button>
+          </button>
         </div>
 
         {/* Right Side: Holographic Collector Card (HoloCard) */}
-        <motion.div
-          initial={reduced ? false : { opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4, ease: EASING.editorial }}
-          className="w-full lg:w-[52%] xl:w-[54%] relative flex items-center justify-center pointer-events-auto z-20 py-2"
-        >
+        <div className="w-full lg:w-[52%] xl:w-[54%] relative flex items-center justify-center pointer-events-auto z-20 py-2">
           <HeroCard />
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Social Links Bottom Left */}
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.05, ease: EASING.editorial }}
-        className="absolute bottom-10 left-24 sm:left-28 md:left-36 lg:left-44 flex gap-8 text-[#cac6bf] z-20"
-
-      >
+      <div className="absolute bottom-10 left-24 sm:left-28 md:left-36 lg:left-44 flex gap-8 text-[#cac6bf] z-20">
         <a
           href="https://github.com/Tanveer1907"
           target="_blank"
@@ -176,7 +144,7 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
         >
           <span className="material-symbols-outlined text-2xl">mail</span>
         </a>
-      </motion.div>
+      </div>
 
       {/* Scroll Down Indicator Bottom Right */}
       <motion.div

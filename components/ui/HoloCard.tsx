@@ -39,7 +39,7 @@ export interface HoloCardProps {
 }
 
 const PERSPECTIVE = 1100;
-const CARD_RATIO = 63 / 88;
+const CARD_RATIO = 680 / 1020;
 
 const VERTEX = `#version 300 es
 in vec2 position;
@@ -695,7 +695,10 @@ export default function HoloCard({
   };
 
   const toggle = () => {
-    if (flippable) setFlipped(value => !value);
+    if (flippable) {
+      setFlipped(value => !value);
+      wakeRef.current?.();
+    }
   };
 
   return (

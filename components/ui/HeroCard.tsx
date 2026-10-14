@@ -44,9 +44,9 @@ export default function HeroCard() {
           intensity={0}
           edgeSparkle={0}
           frame={0}
-          glare={0.3}
+          glare={0.35}
           width={cardWidth}
-          radius={20}
+          radius={18}
           tiltMax={15}
           hoverScale={1.04}
           idle={true}
