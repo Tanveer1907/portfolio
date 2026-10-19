@@ -113,7 +113,7 @@ export const HorizontalTimeline = ({ data }: { data: TimelineEntry[] }) => {
   return (
     <div ref={containerRef} className="relative h-[400vh] w-full bg-transparent">
       {/* Sticky Fullscreen Container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center py-10 px-6 sm:px-12 md:px-16">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center py-10 pl-24 sm:pl-28 md:pl-36 lg:pl-40 xl:pl-44 pr-6 sm:pr-10 md:pr-16 lg:pr-20">
         {/* Top Header & Progress Line */}
         <div className="max-w-6xl w-full mx-auto mb-8 flex flex-col gap-3 z-20">
           <div className="flex items-center justify-between">

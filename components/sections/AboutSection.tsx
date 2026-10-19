@@ -11,7 +11,7 @@ export default function AboutSection({ onOpenExpandedAbout }: AboutSectionProps)
   return (
     <section
       id="about"
-      className="w-full min-h-screen bg-transparent text-[#F1F0EB] relative overflow-hidden flex flex-col justify-center"
+      className="w-full min-h-screen bg-transparent text-[#F1F0EB] relative overflow-hidden flex flex-col justify-center pl-24 sm:pl-28 md:pl-36 lg:pl-40 xl:pl-44 pr-6 sm:pr-10 md:pr-16 lg:pr-20 xl:pr-24 scroll-mt-6"
     >
       <ContainerScroll
         titleComponent={

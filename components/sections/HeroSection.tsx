@@ -2,10 +2,8 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import MaskedHeading from "@/components/ui/MaskedHeading";
-import RisingParticles from "@/components/ui/RisingParticles";
+import WarpText from "@/components/ui/WarpText";
 import HeroCard from "@/components/ui/HeroCard";
-import { EASING } from "@/lib/animations/tokens";
 
 interface HeroSectionProps {
   onExplore: () => void;
@@ -28,14 +26,12 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
     <section
       ref={containerRef}
       id="home"
-      className="relative w-full min-h-screen flex flex-col justify-center px-8 sm:px-14 md:px-20 lg:px-28 xl:px-36 overflow-hidden py-10 md:py-14 bg-transparent"
+      className="relative w-full min-h-screen lg:h-screen lg:max-h-[100dvh] flex flex-col justify-center pl-24 sm:pl-28 md:pl-36 lg:pl-40 xl:pl-44 pr-6 sm:pr-10 md:pr-16 lg:pr-20 xl:pr-24 overflow-hidden pt-6 pb-14 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-transparent scroll-mt-6"
     >
-
-
-      {/* Main Content Area: Aligned slightly rightwards with max-w container */}
+      {/* Main Content Area: Centered with comfortable breathing room */}
       <motion.div
         style={{ y: reduced ? 0 : textY, opacity: reduced ? 1 : opacity }}
-        className="relative z-20 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-14 w-full max-w-[1440px] mx-auto mt-2 md:mt-4"
+        className="relative z-20 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-14 w-full max-w-[1440px] mx-auto my-auto"
       >
         {/* Left Side: Main Text and CTA */}
         <div className="flex flex-col gap-3 sm:gap-4 w-full lg:w-[48%] xl:w-[46%] flex-shrink-0 lg:pl-4">
@@ -47,47 +43,35 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
             </span>
           </div>
 
-          {/* Headline: Intro label HI, I'M + Large prominent MaskedHeading TANVEER SINGH */}
+          {/* Headline: Intro label HI, I'M + Interactive WarpText TANVEER SINGH */}
           <div className="flex flex-col gap-0.5 w-full max-w-2xl overflow-visible">
             <span className="font-label-caps text-[#cac6bf] text-sm sm:text-base md:text-lg font-semibold tracking-[0.25em] uppercase">
               HI, I&apos;M
             </span>
             <div className="relative w-full overflow-visible py-1">
-              <MaskedHeading
-                text="TANVEER SINGH"
-                tag="h1"
+              <WarpText
+                text={"TANVEER\nSINGH"}
+                warpStrength={0.07}
+                warpScale={1.6}
+                speed={0.55}
+                lens="bulge"
+                pointerInfluence={0.42}
+                pointerStrength={0.38}
+                refraction={0.018}
+                chromatic={0.35}
+                idleDrift={0.2}
+                ripple
+                clickRipple
+                intro
+                fontSize="clamp(2.7rem, 5.8vw, 5.2rem)"
+                fontWeight={900}
+                fontFamily="var(--font-space-grotesk), system-ui, sans-serif"
+                letterSpacing="-0.035em"
+                lineHeight={0.88}
                 align="left"
-                weight={900}
-                tracking={-0.035}
-                lineHeight={0.92}
-                textScale={0.18}
-                fillScale={1.35}
-                parallax={32}
-                drift={18}
-                reveal="rise"
-                trigger="view"
-                className="font-hero-display uppercase"
-                customMedia={
-                  <div className="w-full h-full relative">
-                    <RisingParticles
-                      className="w-full h-full"
-                      particleCount={80}
-                      repelRadius={130}
-                      repelStrength={7}
-                      speed={1.0}
-                      minRadius={1.8}
-                      maxRadius={4.0}
-                      denseGlow={true}
-                      baseColor="linear-gradient(135deg, rgba(22, 34, 48, 0.96) 0%, rgba(180, 210, 240, 0.92) 30%, rgba(245, 243, 238, 0.98) 55%, rgba(57, 195, 239, 0.95) 80%, rgba(15, 25, 38, 0.96) 100%)"
-                      colors={[
-                        "rgba(255, 255, 255, ",
-                        "rgba(57, 195, 239, ",
-                        "rgba(245, 208, 97, ",
-                        "rgba(241, 240, 235, ",
-                      ]}
-                    />
-                  </div>
-                }
+                color="#F1F0EB"
+                style={{ height: "185px", width: "100%", minHeight: "170px" }}
+                className="font-hero-display"
               />
             </div>
           </div>
@@ -118,7 +102,7 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
       </motion.div>
 
       {/* Social Links Bottom Left */}
-      <div className="absolute bottom-10 left-24 sm:left-28 md:left-36 lg:left-44 flex gap-8 text-[#cac6bf] z-20">
+      <div className="absolute bottom-5 sm:bottom-6 md:bottom-8 left-24 sm:left-28 md:left-36 lg:left-44 flex gap-8 text-[#cac6bf] z-20">
         <a
           href="https://github.com/Tanveer1907"
           target="_blank"
@@ -151,7 +135,7 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.18 }}
-        className="absolute bottom-10 right-8 sm:right-14 md:right-20 lg:right-28 xl:right-36 flex items-center gap-3 text-[#949087] z-20 mix-blend-difference"
+        className="absolute bottom-5 sm:bottom-6 md:bottom-8 right-8 sm:right-14 md:right-20 lg:right-28 xl:right-36 flex items-center gap-3 text-[#949087] z-20 mix-blend-difference"
       >
         <span className="font-label-caps tracking-widest text-xs">SCROLL TO BEGIN</span>
         <motion.span

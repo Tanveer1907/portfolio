@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import SmoothScrollProvider, { useLenisScroll } from "@/components/layout/SmoothScrollProvider";
-import BubbleMenu from "@/components/navigation/BubbleMenu";
+import GooeyNav from "@/components/navigation/GooeyNav";
 import HeroSection from "@/components/sections/HeroSection";
 
 import AboutSection from "@/components/sections/AboutSection";
@@ -15,90 +15,97 @@ import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/sections/Footer";
 import ClickSpark from "@/components/ui/ClickSpark";
 import IntroSequence from "@/components/layout/IntroSequence";
-import { NoiseBackground } from "@/components/ui/noise-background";
 
+const NAV_ITEMS = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Journey", href: "#journey" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#connect" },
+];
 
 function PortfolioContent() {
-  const { scrollTo } = useLenisScroll();
+  const { lenis, scrollTo } = useLenisScroll();
 
   const [hasEntered, setHasEntered] = useState<boolean>(false);
   const [isExpandedAboutOpen, setIsExpandedAboutOpen] = useState<boolean>(false);
+  const [activeNavIndex, setActiveNavIndex] = useState<number>(0);
 
+  const isClickScrollingRef = React.useRef<boolean>(false);
+  const clickTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  const handleSelectSection = (id: string) => {
-    const cleanId = id.replace("#", "");
+  const handleSelectSection = (targetHref: string) => {
+    const cleanId = targetHref.replace("#", "");
     const targetId = cleanId === "hero" ? "home" : cleanId;
+    const index = NAV_ITEMS.findIndex((item) => item.href === `#${targetId}`);
+    if (index !== -1) {
+      setActiveNavIndex(index);
+    }
+
+    isClickScrollingRef.current = true;
+    if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+    clickTimeoutRef.current = setTimeout(() => {
+      isClickScrollingRef.current = false;
+    }, 900);
+
     scrollTo(`#${targetId}`);
   };
 
-  const menuItems = [
-    {
-      label: "home",
-      href: "#home",
-      ariaLabel: "Home",
-      rotation: -8,
-      hoverStyles: { bgColor: "#3b82f6", textColor: "#ffffff" },
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        handleSelectSection("home");
-      },
-    },
-    {
-      label: "about",
-      href: "#about",
-      ariaLabel: "About",
-      rotation: 8,
-      hoverStyles: { bgColor: "#10b981", textColor: "#ffffff" },
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        handleSelectSection("about");
-      },
-    },
-    {
-      label: "journey",
-      href: "#journey",
-      ariaLabel: "Journey",
-      rotation: 8,
-      hoverStyles: { bgColor: "#8b5cf6", textColor: "#ffffff" },
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        handleSelectSection("journey");
-      },
-    },
-    {
-      label: "projects",
-      href: "#projects",
-      ariaLabel: "Projects",
-      rotation: 8,
-      hoverStyles: { bgColor: "#f59e0b", textColor: "#ffffff" },
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        handleSelectSection("projects");
-      },
-    },
-    {
-      label: "skills",
-      href: "#skills",
-      ariaLabel: "Skills",
-      rotation: -6,
-      hoverStyles: { bgColor: "#ec4899", textColor: "#ffffff" },
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        handleSelectSection("skills");
-      },
-    },
-    {
-      label: "contact",
-      href: "#connect",
-      ariaLabel: "Contact",
-      rotation: -8,
-      hoverStyles: { bgColor: "#ef4444", textColor: "#ffffff" },
-      onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-        handleSelectSection("connect");
-      },
-    },
-  ];
+  // Synchronize active nav pill with scroll position
+  React.useEffect(() => {
+    if (!hasEntered) return;
+
+    const sectionIds = ["home", "about", "journey", "projects", "skills", "connect"];
+
+    const updateActiveSectionOnScroll = () => {
+      if (isClickScrollingRef.current) return;
+
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // Bottom reached -> activate Contact
+      if (scrollY + windowHeight >= docHeight - 80) {
+        setActiveNavIndex(sectionIds.length - 1);
+        return;
+      }
+
+      // Top reached -> activate Home
+      if (scrollY < 120) {
+        setActiveNavIndex(0);
+        return;
+      }
+
+      const threshold = windowHeight * 0.38;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= threshold) {
+            setActiveNavIndex(i);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", updateActiveSectionOnScroll, { passive: true });
+    if (lenis) {
+      lenis.on("scroll", updateActiveSectionOnScroll);
+    }
+    updateActiveSectionOnScroll();
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSectionOnScroll);
+      if (lenis) {
+        lenis.off("scroll", updateActiveSectionOnScroll);
+      }
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+      }
+    };
+  }, [hasEntered, lenis]);
 
   return (
     <div className="relative min-h-screen bg-transparent text-[#F1F0EB] antialiased overflow-x-clip w-full">
@@ -107,35 +114,31 @@ function PortfolioContent() {
         <IntroSequence onFinish={() => setHasEntered(true)} />
       )}
 
-      {/* Bubble Menu Navigation (active once entered) */}
+      {/* Vertical Gooey Navigation Bar (fixed on left side) */}
       {hasEntered && (
-        <BubbleMenu
-          logo={
-            <NoiseBackground
-              containerClassName="w-fit p-1 rounded-full mx-auto"
-              gradientColors={[
-                "rgb(255, 100, 150)",
-                "rgb(100, 150, 255)",
-                "rgb(255, 200, 100)",
-              ]}
-            >
-              <button
-                onClick={() => handleSelectSection("home")}
-                className="h-full w-full cursor-pointer rounded-full bg-linear-to-r from-neutral-100 via-neutral-100 to-white px-5 py-2 text-black font-extrabold text-xs tracking-wider shadow-[0px_2px_0px_0px_var(--color-neutral-50)_inset,0px_0.5px_1px_0px_var(--color-neutral-400)] transition-all duration-100 active:scale-98 dark:from-black dark:via-black dark:to-neutral-900 dark:text-white dark:shadow-[0px_1px_0px_0px_var(--color-neutral-950)_inset,0px_1px_0px_0px_var(--color-neutral-800)] flex items-center justify-center"
-              >
-                TS
-              </button>
-            </NoiseBackground>
-          }
-          items={menuItems}
-          menuAriaLabel="Toggle navigation"
-          menuBg="#181817"
-          menuContentColor="#F1F0EB"
-          useFixedPosition={true}
-          animationEase="back.out(1.5)"
-          animationDuration={0.5}
-          staggerDelay={0.12}
-        />
+        <header
+          className="fixed left-2 sm:left-4 md:left-6 lg:left-8 top-1/2 -translate-y-1/2 z-50 pointer-events-auto transition-all duration-500 ease-out animate-in fade-in slide-in-from-left-6"
+          role="banner"
+        >
+          <GooeyNav
+            orientation="vertical"
+            items={NAV_ITEMS}
+            activeIndex={activeNavIndex}
+            onChange={(index) => handleSelectSection(NAV_ITEMS[index].href)}
+            theme="dark"
+            size="sm"
+            frame={true}
+            particleCount={14}
+            spread={22}
+            animationTime={550}
+            timeVariance={240}
+            gooeyness={0.5}
+            wobble={0.45}
+            hoverEffect={true}
+            color="#F1F0EB"
+            colors={["#39C3EF", "#10b981", "#8b5cf6", "#f59e0b", "#ec4899", "#3b82f6"]}
+          />
+        </header>
       )}
 
       {/* Main Single-Column Full Viewport Continuous Flow */}

@@ -74,7 +74,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="w-full min-h-screen bg-transparent text-[#F1F0EB] py-20 px-6 sm:px-12 md:px-20 xl:px-28 relative overflow-hidden flex flex-col justify-center"
+      className="w-full min-h-screen bg-transparent text-[#F1F0EB] py-20 pl-24 sm:pl-28 md:pl-36 lg:pl-40 xl:pl-44 pr-6 sm:pr-10 md:pr-16 lg:pr-20 xl:pr-28 relative overflow-hidden flex flex-col justify-center scroll-mt-6"
     >
       {/* Section Header */}
       <div className="max-w-6xl mx-auto w-full mb-12 flex flex-col gap-2">

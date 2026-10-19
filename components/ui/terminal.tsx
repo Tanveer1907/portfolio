@@ -335,7 +335,7 @@ export function Terminal({
   typingSpeed = 50,
   delayBetweenCommands = 800,
   initialDelay = 500,
-  enableSound = true,
+  enableSound = false,
   onComplete,
 }: TerminalProps) {
 

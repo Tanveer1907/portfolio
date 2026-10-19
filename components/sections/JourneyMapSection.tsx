@@ -127,7 +127,7 @@ const JOURNEY_TIMELINE: TimelineEntry[] = [
 
 export default function JourneyMapSection() {
   return (
-    <section id="journey" className="w-full bg-transparent">
+    <section id="journey" className="w-full bg-transparent scroll-mt-6">
       <HorizontalTimeline data={JOURNEY_TIMELINE} />
     </section>
   );

@@ -49,7 +49,7 @@ export default function SkillsSection() {
   const reduced = useReducedMotion();
 
   return (
-    <section id="skills" className="w-full bg-transparent py-32 px-6 md:px-24 xl:px-48">
+    <section id="skills" className="w-full bg-transparent py-24 pl-24 sm:pl-28 md:pl-36 lg:pl-40 xl:pl-44 pr-6 sm:pr-12 md:pr-20 xl:pr-32 scroll-mt-6">
       <Reveal staggerChildren={STAGGER.MEDIUM}>
         <RevealItem>
           <span className="font-mono-data text-[#949087] mb-12 block">

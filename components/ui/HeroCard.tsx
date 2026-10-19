@@ -11,20 +11,21 @@ export default function HeroCard() {
       const w = window.innerWidth;
       const h = window.innerHeight;
 
-      // Make the card much larger and fill the space cleanly
+      // Make the card responsive and fill the space cleanly
       if (w < 440) {
-        setCardWidth(Math.min(w - 48, 320));
+        setCardWidth(Math.min(w - 95, 290));
       } else if (w < 640) {
-        setCardWidth(340);
+        setCardWidth(Math.min(w - 110, 330));
       } else if (w < 1024) {
-        setCardWidth(370);
-      } else if (h < 750) {
-        // Balanced height for laptops with shorter viewports
+        setCardWidth(350);
+      } else if (h < 720) {
+        setCardWidth(330);
+      } else if (h < 800) {
+        setCardWidth(355);
+      } else if (h < 900) {
         setCardWidth(390);
-      } else if (w < 1440) {
-        setCardWidth(420);
       } else {
-        setCardWidth(450);
+        setCardWidth(420);
       }
     };
 

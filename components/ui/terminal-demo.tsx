@@ -79,7 +79,7 @@ export default function TerminalDemo({
           username="tanveer@macbook"
           typingSpeed={35}
           delayBetweenCommands={800}
-          enableSound={true}
+          enableSound={false}
           onComplete={handleComplete}
           className="w-full max-w-xl shadow-2xl"
         />

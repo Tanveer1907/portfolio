@@ -23,6 +23,8 @@ export default function IntroSequence({ onFinish }: IntroSequenceProps) {
   const curtainRef = useRef<HTMLDivElement | null>(null);
   const terminalRef = useRef<HTMLDivElement | null>(null);
 
+  const finishTimeRef = useRef<number>(0);
+
   const handleTerminalComplete = useCallback(() => {
     isTerminalDoneRef.current = true;
   }, []);
@@ -30,12 +32,20 @@ export default function IntroSequence({ onFinish }: IntroSequenceProps) {
   const triggerFinish = useCallback(() => {
     if (hasFinishedRef.current) return;
     hasFinishedRef.current = true;
+    finishTimeRef.current = Date.now();
     window.scrollTo({ top: 0, behavior: "instant" });
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });
-      lenis.start();
     }
-    unlockScroll();
+    // Delay unlocking scroll slightly so residual trackpad/wheel momentum doesn't scroll past the hero view
+    setTimeout(() => {
+      unlockScroll();
+      if (lenis) {
+        lenis.start();
+        lenis.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, 450);
     onFinish();
   }, [lenis, onFinish, unlockScroll]);
 
@@ -52,7 +62,15 @@ export default function IntroSequence({ onFinish }: IntroSequenceProps) {
     document.body.style.overflow = "hidden";
 
     const onWheel = (e: WheelEvent) => {
-      if (!isTerminalDoneRef.current || hasFinishedRef.current) return;
+      if (!isTerminalDoneRef.current) return;
+      if (hasFinishedRef.current) {
+        if (Date.now() - finishTimeRef.current < 500) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "instant" });
+          if (lenis) lenis.scrollTo(0, { immediate: true });
+        }
+        return;
+      }
       e.preventDefault();
       const delta = e.deltaY;
       targetProgressRef.current = clamp(targetProgressRef.current + delta * 0.0016, 0, 1.05);
@@ -66,7 +84,13 @@ export default function IntroSequence({ onFinish }: IntroSequenceProps) {
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      if (!isTerminalDoneRef.current || hasFinishedRef.current) return;
+      if (!isTerminalDoneRef.current) return;
+      if (hasFinishedRef.current) {
+        if (Date.now() - finishTimeRef.current < 500) {
+          e.preventDefault();
+        }
+        return;
+      }
       if (e.touches.length > 0) {
         const touchY = e.touches[0].clientY;
         const delta = startTouchY - touchY;

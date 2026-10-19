@@ -23,7 +23,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="connect" className="w-full py-16 px-6 md:px-12 xl:px-24 flex flex-col items-center justify-center bg-transparent">
+    <section id="connect" className="w-full py-16 pl-24 sm:pl-28 md:pl-36 lg:pl-40 xl:pl-44 pr-6 sm:pr-10 md:pr-16 xl:pr-24 flex flex-col items-center justify-center bg-transparent scroll-mt-6">
       <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         {/* Left Side: Enlarged Interactive Card Component */}
         <div className="lg:col-span-5 xl:col-span-5 flex justify-center items-center w-full">
