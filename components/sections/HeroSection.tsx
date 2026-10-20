@@ -2,7 +2,8 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import WarpText from "@/components/ui/WarpText";
+import MaskedHeading from "@/components/ui/MaskedHeading";
+import RisingParticles from "@/components/ui/RisingParticles";
 import HeroCard from "@/components/ui/HeroCard";
 
 interface HeroSectionProps {
@@ -43,35 +44,47 @@ export default function HeroSection({ onExplore }: HeroSectionProps) {
             </span>
           </div>
 
-          {/* Headline: Intro label HI, I'M + Interactive WarpText TANVEER SINGH */}
+          {/* Headline: Intro label HI, I'M + Large prominent MaskedHeading TANVEER SINGH */}
           <div className="flex flex-col gap-0.5 w-full max-w-2xl overflow-visible">
             <span className="font-label-caps text-[#cac6bf] text-sm sm:text-base md:text-lg font-semibold tracking-[0.25em] uppercase">
               HI, I&apos;M
             </span>
             <div className="relative w-full overflow-visible py-1">
-              <WarpText
-                text={"TANVEER\nSINGH"}
-                warpStrength={0.07}
-                warpScale={1.6}
-                speed={0.55}
-                lens="bulge"
-                pointerInfluence={0.42}
-                pointerStrength={0.38}
-                refraction={0.018}
-                chromatic={0.35}
-                idleDrift={0.2}
-                ripple
-                clickRipple
-                intro
-                fontSize="clamp(2.7rem, 5.8vw, 5.2rem)"
-                fontWeight={900}
-                fontFamily="var(--font-space-grotesk), system-ui, sans-serif"
-                letterSpacing="-0.035em"
-                lineHeight={0.88}
+              <MaskedHeading
+                text="TANVEER SINGH"
+                tag="h1"
                 align="left"
-                color="#F1F0EB"
-                style={{ height: "185px", width: "100%", minHeight: "170px" }}
-                className="font-hero-display"
+                weight={900}
+                tracking={-0.035}
+                lineHeight={0.92}
+                textScale={0.18}
+                fillScale={1.35}
+                parallax={32}
+                drift={18}
+                reveal="rise"
+                trigger="view"
+                className="font-hero-display uppercase"
+                customMedia={
+                  <div className="w-full h-full relative">
+                    <RisingParticles
+                      className="w-full h-full"
+                      particleCount={80}
+                      repelRadius={130}
+                      repelStrength={7}
+                      speed={1.0}
+                      minRadius={1.8}
+                      maxRadius={4.0}
+                      denseGlow={true}
+                      baseColor="linear-gradient(135deg, rgba(22, 34, 48, 0.96) 0%, rgba(180, 210, 240, 0.92) 30%, rgba(245, 243, 238, 0.98) 55%, rgba(57, 195, 239, 0.95) 80%, rgba(15, 25, 38, 0.96) 100%)"
+                      colors={[
+                        "rgba(255, 255, 255, ",
+                        "rgba(57, 195, 239, ",
+                        "rgba(245, 208, 97, ",
+                        "rgba(241, 240, 235, ",
+                      ]}
+                    />
+                  </div>
+                }
               />
             </div>
           </div>

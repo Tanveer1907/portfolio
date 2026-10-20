@@ -168,6 +168,8 @@ export default function IntroSequence({ onFinish }: IntroSequenceProps) {
     animIdRef.current = requestAnimationFrame(updateLoop);
 
     return () => {
+      unlockScroll();
+      if (lenis) lenis.start();
       document.body.style.overflow = originalOverflow;
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
